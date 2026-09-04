@@ -1,21 +1,16 @@
 import React, { useState, useMemo } from 'react';
 import {
-  CheckCircle2,
-  XCircle,
   AlertTriangle,
   FileDown,
-  Bookmark,
-  RotateCcw,
   ShieldCheck,
   ShieldAlert,
   ChevronDown,
   ChevronUp,
   Copy,
   Check,
-  Zap,
-  Info
+  Zap
 } from 'lucide-react';
-import { DeclarationResult, ScanRecord, ValidationStatus } from '../types/metrology';
+import { ScanRecord, ValidationStatus } from '../types/metrology';
 import { exportEnforcementPdf } from '../utils/pdfGenerator';
 
 interface ResultsViewProps {
@@ -257,7 +252,6 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
       {activeTab === 'declarations' && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {record.results.map((decl) => {
-            const isPass = decl.status === 'compliant';
             const isFontSizeCheck = decl.status === 'font_size_needs_check';
             const isNA = decl.status === 'not_applicable';
             const isFault = decl.status === 'malformed' || decl.status === 'missing';

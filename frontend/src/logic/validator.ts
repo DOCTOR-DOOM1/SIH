@@ -38,7 +38,6 @@ export function validateDeclarations(
   hints?: { isImported?: boolean; smallFontRisk?: boolean; fontNotes?: string }
 ): ValidationOutput {
   const normalized = (extractedText || '').replace(/\r?\n/g, ' ').trim();
-  const lower = normalized.toLowerCase();
 
   // 1. Manufacturer / Packer / Importer Details (Rule 6(1)(a))
   // Must include a name and postal address (heuristic: contains a 6-digit Indian PIN code)
@@ -86,7 +85,6 @@ export function validateDeclarations(
   let netQtyDetails = 'Net quantity must be declared using standard SI units (g, kg, ml, l, m, cm) or piece count (N, units, pcs).';
   let netQtyReason: string | undefined;
 
-  const netQtyRegex = /(?:net\s*(?:wt|weight|qty|quantity|volume|content|contents)?[:\s]*)?(\d+(?:\.\d+)?)\s*([a-zA-Z°]+(?:\s*[a-zA-Z]+)?)/i;
   // Specific pattern scanning for number followed immediately by standard or non-standard unit
   const explicitQtyMatch = normalized.match(/(?:net\s*(?:weight|wt|qty|quantity|vol|volume)?[:\s]*)?(\d+(?:\.\d+)?)\s*(kg|g|gm|grams|ml|ltr|litre|litres|liter|liters|meter|m|cm|oz|ounces|lbs|lb|units?|pcs|pieces?|nos?|n)\b/i);
 

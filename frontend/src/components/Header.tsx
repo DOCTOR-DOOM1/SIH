@@ -1,5 +1,5 @@
 import React from 'react';
-import { Scale, Scan, FolderClock, BookOpen, ShieldCheck, User, Sparkles } from 'lucide-react';
+import { Scale, Scan, FolderClock, BookOpen, ShieldCheck } from 'lucide-react';
 import { OfficerProfile } from '../types/metrology';
 
 interface HeaderProps {

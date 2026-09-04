@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, BookOpen, AlertCircle, CheckCircle2, ShieldCheck, ExternalLink } from 'lucide-react';
+import { X, BookOpen, AlertCircle, ShieldCheck } from 'lucide-react';
 
 interface RulesGuideModalProps {
   isOpen: boolean;
