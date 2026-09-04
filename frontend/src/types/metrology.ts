@@ -37,6 +37,13 @@ export interface FontSizeAdvisory {
   guidanceTable: string;
 }
 
+export interface GS1Data {
+  gtin_found: boolean;
+  gtin?: string;
+  registered_company?: string;
+  product_description?: string;
+}
+
 export interface ScanRecord {
   id: string;
   timestamp: string;
@@ -52,6 +59,7 @@ export interface ScanRecord {
   fontSizeAdvisory: FontSizeAdvisory;
   isImported: boolean;
   notes?: string;
+  gs1Data?: GS1Data;
 }
 
 export interface OfficerProfile {

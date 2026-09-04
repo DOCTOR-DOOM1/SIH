@@ -417,6 +417,59 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
             </div>
           </div>
 
+          {/* GS1 Global Registry Verification Card */}
+          {record.gs1Data && (
+            <div className="md:col-span-2 bg-[#181818] border border-blue-500/30 p-6 rounded-2xl space-y-4 shadow-[0_0_15px_rgba(59,130,246,0.1)]">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="bg-blue-500/20 text-blue-400 p-2 rounded-lg">
+                    <ShieldCheck size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white font-playfair flex items-center gap-2">
+                      GS1 Global Registry Verification
+                      {record.gs1Data.gtin_found ? (
+                        <span className="bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-widest">
+                          Barcode Detected
+                        </span>
+                      ) : (
+                        <span className="bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-widest">
+                          No GTIN Found
+                        </span>
+                      )}
+                    </h4>
+                    <p className="text-xs text-zinc-400">Verifying manufacturer authenticity against global standards.</p>
+                  </div>
+                </div>
+              </div>
+              
+              {record.gs1Data.gtin_found ? (
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                  <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
+                    <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">GTIN (Barcode)</span>
+                    <span className="font-mono text-amber-400">{record.gs1Data.gtin}</span>
+                  </div>
+                  <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
+                    <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Registered Company</span>
+                    <span className="text-zinc-200 font-semibold">{record.gs1Data.registered_company}</span>
+                  </div>
+                  <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
+                    <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Product Description</span>
+                    <span className="text-zinc-300 text-sm">{record.gs1Data.product_description}</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-sm text-red-400 flex items-start gap-3">
+                  <ShieldAlert size={18} className="shrink-0 mt-0.5" />
+                  <p>
+                    No valid GS1 barcode (GTIN) could be extracted from this label. 
+                    Without a scannable barcode, the origin and manufacturer authenticity cannot be verified via the global registry.
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+
           {/* OCR Blocks Breakdown with Confidences */}
           {record.textBlocks && record.textBlocks.length > 0 && (
             <div className="md:col-span-2 bg-[#181818] border border-zinc-800 p-6 rounded-2xl space-y-3">

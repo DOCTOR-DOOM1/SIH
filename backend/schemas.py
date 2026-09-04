@@ -6,6 +6,8 @@ class ComplianceRuleCheck(BaseModel):
     rule_clause_citation: Optional[str] = None
     status: str
     extracted_value: Optional[str] = None
+    explanation_of_extraction: Optional[str] = None
+    confidence_score: float
     reasoning: str
 
 class GS1Data(BaseModel):

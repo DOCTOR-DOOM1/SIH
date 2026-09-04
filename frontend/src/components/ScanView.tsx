@@ -110,6 +110,8 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
       guidanceTable: ''
     };
 
+    let gs1Data = undefined;
+
     // If this is a known sample preset, use its curated benchmark text directly
     if (activeSamplePreset) {
       extractedText = activeSamplePreset.extractedText;
@@ -139,16 +141,17 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
           const data = await response.json();
           extractedText = data.raw_ocr_text || '';
           overallVerdict = data.overall_status === 'COMPLIANT' ? 'COMPLIANT' : 'NON-COMPLIANT';
+          gs1Data = data.gs1_data;
           results = data.checks.map((check: any, i: number) => ({
             id: `rule-${i}`,
             name: check.rule_name,
             status: check.status === 'COMPLIANT' ? 'compliant' : 'missing',
             extractedValue: check.extracted_value || 'Not Found',
             ruleReference: check.rule_clause_citation || 'LMPC Rules',
-            details: check.reasoning,
+            details: check.explanation_of_extraction ? `Extracted: "${check.explanation_of_extraction}"\n\nReasoning: ${check.reasoning}` : check.reasoning,
             requirementText: '',
             legalCitation: '',
-            confidence: 0.95
+            confidence: check.confidence_score !== undefined ? check.confidence_score : (data.confidence_score !== undefined ? data.confidence_score : 0.95)
           }));
         } else {
           console.warn('API call failed, falling back to local vision extractor simulation');
@@ -184,6 +187,7 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
       fontSizeAdvisory: fontSizeAdvisory,
       isImported: isImported,
       notes: activeSamplePreset ? activeSamplePreset.description : undefined,
+      gs1Data: gs1Data,
     };
 
     setIsScanning(false);

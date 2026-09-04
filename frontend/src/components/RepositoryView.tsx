@@ -96,7 +96,7 @@ export const RepositoryView: React.FC<RepositoryViewProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-zinc-800 pb-5">
         <div>
           <h2 className="text-2xl lg:text-3xl font-bold font-playfair italic text-white">
-            Audit Repository & Records
+            Scan History
           </h2>
           <p className="text-xs text-zinc-400 mt-0.5 font-mono uppercase tracking-wider">
             Local statutory inspection archive under Legal Metrology Rules, 2011
