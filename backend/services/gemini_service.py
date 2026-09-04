@@ -1,7 +1,7 @@
 import os
 from google import genai
 from google.genai import types
-from schemas import LabelComplianceReport
+from schemas import GeminiAnalysisResult
 import json
 
 def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
@@ -14,27 +14,34 @@ def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
         client = genai.Client(api_key=api_key)
         
         prompt = """
-        You are a Principal Legal Metrology Compliance Officer in India (an expert in the Legal Metrology Packaged Commodities Rules, 2011).
+        You are a Principal Legal Metrology Compliance Officer in India. 
         Analyze the provided image of a packaged goods label and strictly evaluate compliance.
+        
+        PHASE 1: IMAGE TRIAGE
+        1. Determine `is_image_clear`: Is the text in the image clear enough to read? If it is severely blurry or illegible, set this to false and provide `image_quality_feedback`.
+        2. Determine `is_product_label`: Is this image actually a packaged good/product label? If it is a random photo (landscape, person, etc.), set this to false and provide `relevance_feedback`.
+        If EITHER of the above is false, set `overall_status` to "REJECTED_UNCLEAR" or "REJECTED_IRRELEVANT" and you may skip the compliance checks.
 
-        CRITICAL EVALUATION RULES:
-        1. **Maximum Retail Price (MRP)**: The exact phrase "inclusive of all taxes" MUST be present next to or below the MRP. If it says just "MRP Rs. 50" without "inclusive of all taxes", it is strictly NON_COMPLIANT.
-        2. **Net Quantity**: Must be in standard metric units (e.g., g, kg, ml, L). Imperial units like "oz", "lbs", "fl oz" are strictly NON_COMPLIANT unless accompanied by a metric equivalent as primary.
-        3. **Date of Manufacture/Packaging**: Must be clearly stated (e.g., "Mfg Date", "Pkd Date") with a valid past or current date. Future dates (e.g., year 2027 or 2028 when it is 2024/2025) are strictly NON_COMPLIANT.
+        PHASE 2: DATA EXTRACTION FOR REGISTRIES
+        - `extracted_mrp_value`: Extract the numeric MRP value (e.g. if "MRP Rs. 50.00", return 50.0).
+        - `extracted_fssai_number`: Extract the 14-digit FSSAI license number if present.
+        - `extracted_barcode`: Extract the 12 or 13 digit barcode (GTIN) number if printed as text.
+
+        PHASE 3: CRITICAL EVALUATION RULES
+        1. **Maximum Retail Price (MRP)**: The exact phrase "inclusive of all taxes" MUST be present next to or below the MRP. If it says just "MRP Rs. 50", it is strictly NON_COMPLIANT.
+        2. **Net Quantity**: Must be in standard metric units (e.g., g, kg, ml, L).
+        3. **Date of Manufacture/Packaging**: Must be clearly stated with a valid past or current date. Future dates are strictly NON_COMPLIANT.
         4. **Manufacturer / Importer Details**: Name and complete address with a valid PIN code must be present.
-        5. **Consumer Care Details**: Must include a phone number and/or an email address for consumer complaints.
+        5. **Consumer Care Details**: Must include a phone number and/or an email address.
         6. **Commodity Name**: Common generic name of the product must be stated.
         
         INSTRUCTIONS:
-        1. Extract all text from the label (OCR) and populate `raw_ocr_text`.
-        2. Evaluate the rules above exactly as described. Create a separate check for each of the 6 rules.
-        3. The `status` field for each check MUST be either "COMPLIANT" or "NON_COMPLIANT".
-        4. You MUST cite the exact rule clause in `rule_clause_citation` (e.g., "Rule 6(1)(e)", "Rule 6(1)(c)").
-        5. For `explanation_of_extraction`, you MUST quote the exact text fragment from the image that supports your evaluation to prevent hallucination.
-        6. For `confidence_score`, provide a float between 0.0 and 1.0 reflecting your certainty of the extraction.
-        7. If ANY check is NON_COMPLIANT, the `overall_status` MUST be "NON_COMPLIANT". If all are COMPLIANT, it must be "COMPLIANT".
-        
-        Provide the response strictly following the JSON schema provided in the structured output configuration.
+        1. Extract all text from the label (OCR) into `raw_ocr_text`.
+        2. Evaluate the 6 rules. Create a separate check for each.
+        3. `status` MUST be "COMPLIANT" or "NON_COMPLIANT".
+        4. `explanation_of_extraction` MUST quote the exact text fragment from the image.
+        5. `confidence_score` between 0.0 and 1.0.
+        6. If all are COMPLIANT (and phase 1 passed), `overall_status` is "COMPLIANT". If any check fails, "NON_COMPLIANT".
         """
         
         response = client.models.generate_content(
@@ -45,7 +52,7 @@ def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
             ],
             config=types.GenerateContentConfig(
                 response_mime_type="application/json",
-                response_schema=LabelComplianceReport,
+                response_schema=GeminiAnalysisResult,
             ),
         )
         
@@ -59,8 +66,15 @@ def get_mock_response(raw_text: str):
     is_compliant = "Rs. 60.00" not in raw_text and "14.5 oz" not in raw_text and "12/2027" not in raw_text
     
     return {
+        "is_image_clear": True,
+        "image_quality_feedback": "Image is clear and legible.",
+        "is_product_label": True,
+        "relevance_feedback": "Looks like a valid product label.",
         "overall_status": "COMPLIANT" if is_compliant else "NON_COMPLIANT",
         "confidence_score": 0.99,
+        "extracted_mrp_value": 60.00 if "Rs. 60.00" in raw_text else 50.00,
+        "extracted_fssai_number": "10012011000168",
+        "extracted_barcode": "8901234567890",
         "checks": [
             {
                 "rule_name": "Maximum Retail Price (MRP)",

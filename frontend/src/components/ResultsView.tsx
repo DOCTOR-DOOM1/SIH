@@ -133,65 +133,88 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
       </div>
 
       {/* Audit Conclusion Hero Banner */}
-      <div
-        className={`p-6 sm:p-7 rounded-3xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 transition-all ${
-          isCompliant
-            ? 'bg-green-500/10 border border-green-500/20 bg-glow bg-glow-green'
-            : 'bg-red-500/10 border border-red-500/20 bg-glow bg-glow-red'
-        }`}
-      >
-        <div className="flex items-center gap-6">
-          <div
-            className={`w-16 h-16 rounded-full flex items-center justify-center shrink-0 ${
-              isCompliant
-                ? 'bg-green-500 shadow-[0_0_20px_rgba(34,197,94,0.3)] text-white'
-                : 'bg-red-500 shadow-[0_0_20px_rgba(239,68,68,0.3)] text-white'
-            }`}
-          >
-            {isCompliant ? (
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
-              </svg>
-            ) : (
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                />
-              </svg>
-            )}
+      {record.overallVerdict === 'REJECTED_UNCLEAR' || record.overallVerdict === 'REJECTED_IRRELEVANT' ? (
+        <div className="p-6 sm:p-7 rounded-3xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 transition-all bg-red-500/10 border border-red-500/20 bg-glow bg-glow-red">
+          <div className="flex items-center gap-6">
+            <div className="w-16 h-16 rounded-full flex items-center justify-center shrink-0 bg-red-500 shadow-[0_0_20px_rgba(239,68,68,0.3)] text-white">
+              <ShieldAlert size={32} />
+            </div>
+            <div>
+              <p className="font-mono text-xs uppercase tracking-tighter font-bold text-red-400">
+                Image Rejected
+              </p>
+              <h3 className="font-playfair text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                {record.overallVerdict === 'REJECTED_UNCLEAR' ? 'Unclear Image' : 'Irrelevant Image'}
+              </h3>
+            </div>
           </div>
-          <div>
-            <p
-              className={`font-mono text-xs uppercase tracking-tighter font-bold ${
-                isCompliant ? 'text-green-400' : 'text-red-400'
+          <div className="text-left sm:text-right">
+            <p className="text-zinc-300 text-sm max-w-sm leading-relaxed">
+              {record.overallVerdict === 'REJECTED_UNCLEAR' ? record.imageQualityFeedback : record.relevanceFeedback}
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div
+          className={`p-6 sm:p-7 rounded-3xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 transition-all ${
+            isCompliant
+              ? 'bg-green-500/10 border border-green-500/20 bg-glow bg-glow-green'
+              : 'bg-red-500/10 border border-red-500/20 bg-glow bg-glow-red'
+          }`}
+        >
+          <div className="flex items-center gap-6">
+            <div
+              className={`w-16 h-16 rounded-full flex items-center justify-center shrink-0 ${
+                isCompliant
+                  ? 'bg-green-500 shadow-[0_0_20px_rgba(34,197,94,0.3)] text-white'
+                  : 'bg-red-500 shadow-[0_0_20px_rgba(239,68,68,0.3)] text-white'
               }`}
             >
-              Audit Conclusion
+              {isCompliant ? (
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+              ) : (
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                  />
+                </svg>
+              )}
+            </div>
+            <div>
+              <p
+                className={`font-mono text-xs uppercase tracking-tighter font-bold ${
+                  isCompliant ? 'text-green-400' : 'text-red-400'
+                }`}
+              >
+                Audit Conclusion
+              </p>
+              <h3 className="font-playfair text-3xl sm:text-4xl font-bold text-white tracking-tight">
+                {isCompliant ? 'Compliant' : 'Non-Compliant'}
+              </h3>
+            </div>
+          </div>
+
+          <div className="text-left sm:text-right">
+            <p className="text-zinc-500 text-xs mb-1.5">
+              {isCompliant ? 'Statutory Rule 6 Criteria Met' : `${violations.length} Critical Violation(s) Found`}
             </p>
-            <h3 className="font-playfair text-3xl sm:text-4xl font-bold text-white tracking-tight">
-              {isCompliant ? 'Compliant' : 'Non-Compliant'}
-            </h3>
+            <span
+              className={`px-4 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-widest inline-block ${
+                isCompliant
+                  ? 'bg-green-500/20 text-green-400 border-green-500/30'
+                  : 'bg-red-500/20 text-red-500 border-red-500/30'
+              }`}
+            >
+              {isCompliant ? 'Certificate Cleared' : 'Immediate Action Required'}
+            </span>
           </div>
         </div>
-
-        <div className="text-left sm:text-right">
-          <p className="text-zinc-500 text-xs mb-1.5">
-            {isCompliant ? 'Statutory Rule 6 Criteria Met' : `${violations.length} Critical Violation(s) Found`}
-          </p>
-          <span
-            className={`px-4 py-1.5 rounded-full border text-[10px] font-black uppercase tracking-widest inline-block ${
-              isCompliant
-                ? 'bg-green-500/20 text-green-400 border-green-500/30'
-                : 'bg-red-500/20 text-red-500 border-red-500/30'
-            }`}
-          >
-            {isCompliant ? 'Certificate Cleared' : 'Immediate Action Required'}
-          </span>
-        </div>
-      </div>
+      )}
 
       {/* Tabs & View Controls */}
       <div className="flex items-center justify-between border-b border-zinc-800">
@@ -255,7 +278,7 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
             const isFontSizeCheck = decl.status === 'font_size_needs_check';
             const isNA = decl.status === 'not_applicable';
             const isFault = decl.status === 'malformed' || decl.status === 'missing';
-            const confidencePercent = Math.round(decl.confidence * 100);
+            const confidencePercent = Math.round((decl.confidence ?? 0.95) * 100);
 
             return (
               <div
@@ -460,6 +483,90 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
                     Without a scannable barcode, the origin and manufacturer authenticity cannot be verified via the global registry.
                   </p>
                 </div>
+              )}
+            </div>
+          )}
+
+          {/* FSSAI Registry Verification Card */}
+          {record.fssaiData && (
+            <div className="md:col-span-2 bg-[#181818] border border-orange-500/30 p-6 rounded-2xl space-y-4 shadow-[0_0_15px_rgba(249,115,22,0.1)]">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="bg-orange-500/20 text-orange-400 p-2 rounded-lg">
+                    <ShieldCheck size={20} />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white font-playfair flex items-center gap-2">
+                      FSSAI License Verification
+                      {record.fssaiData.is_registered ? (
+                        <span className="bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-widest">
+                          Registered
+                        </span>
+                      ) : (
+                        <span className="bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-widest">
+                          Unregistered / Invalid
+                        </span>
+                      )}
+                    </h4>
+                    <p className="text-xs text-zinc-400">Verifying food safety and standards authority registration.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
+                <div className="flex-1">
+                  <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Extracted License</span>
+                  <span className="font-mono text-amber-400">{record.fssaiData.license_number || 'N/A'}</span>
+                </div>
+                <div className="flex-1">
+                  <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Company Name</span>
+                  <span className="text-zinc-200 font-semibold">{record.fssaiData.company_name || 'N/A'}</span>
+                </div>
+                <div className="flex-1">
+                   <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Status Message</span>
+                   <span className="text-zinc-300 text-sm">{record.fssaiData.status_message}</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* MRP Forgery Check Card */}
+          {record.mrpVerification && (
+            <div className={`md:col-span-2 bg-[#181818] border p-6 rounded-2xl space-y-4 ${record.mrpVerification.is_match ? 'border-green-500/30 shadow-[0_0_15px_rgba(34,197,94,0.1)]' : 'border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.1)]'}`}>
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className={`p-2 rounded-lg ${record.mrpVerification.is_match ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
+                    {record.mrpVerification.is_match ? <ShieldCheck size={20} /> : <AlertTriangle size={20} />}
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-bold text-white font-playfair flex items-center gap-2">
+                      Anti-Forgery Price Check (MRP)
+                      {record.mrpVerification.is_match ? (
+                         <span className="bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-widest">Match</span>
+                      ) : (
+                         <span className="bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-widest">Mismatch / Suspicious</span>
+                      )}
+                    </h4>
+                    <p className="text-xs text-zinc-400">Comparing printed MRP with GS1 Manufacturer Registry.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
+                  <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Printed MRP (Extracted)</span>
+                  <span className="font-mono text-zinc-200 text-xl font-bold">{record.mrpVerification.extracted_mrp ? `Rs. ${record.mrpVerification.extracted_mrp}` : '--'}</span>
+                </div>
+                <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
+                  <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Registered MRP (GS1 Database)</span>
+                  <span className="font-mono text-amber-400 text-xl font-bold">{record.mrpVerification.registered_mrp ? `Rs. ${record.mrpVerification.registered_mrp}` : '--'}</span>
+                </div>
+              </div>
+              
+              {!record.mrpVerification.is_match && (
+                 <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-xs text-red-400 font-medium">
+                   {record.mrpVerification.verification_message}
+                 </div>
               )}
             </div>
           )}

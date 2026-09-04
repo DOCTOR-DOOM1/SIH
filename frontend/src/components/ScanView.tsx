@@ -101,7 +101,7 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
     let isImported = false;
     let smallFontRisk = false;
     let fontNotes = '';
-    let overallVerdict: 'COMPLIANT' | 'NON-COMPLIANT' = 'NON-COMPLIANT';
+    let overallVerdict: 'COMPLIANT' | 'NON-COMPLIANT' | 'REJECTED_UNCLEAR' | 'REJECTED_IRRELEVANT' | 'NEEDS_MANUAL_REVIEW' = 'NON-COMPLIANT';
     let results: DeclarationResult[] = [];
     let fontSizeAdvisory: FontSizeAdvisory = {
       flag: 'proportional_acceptable',
@@ -111,6 +111,14 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
     };
 
     let gs1Data = undefined;
+    let fssaiData = undefined;
+    let mrpVerification = undefined;
+    let isImageClear = true;
+    let imageQualityFeedback = '';
+    let isProductLabel = true;
+    let relevanceFeedback = '';
+    let extractedFssai = '';
+    let extractedBarcode = '';
 
     // If this is a known sample preset, use its curated benchmark text directly
     if (activeSamplePreset) {
@@ -140,9 +148,23 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
         if (response.ok) {
           const data = await response.json();
           extractedText = data.raw_ocr_text || '';
-          overallVerdict = data.overall_status === 'COMPLIANT' ? 'COMPLIANT' : 'NON-COMPLIANT';
+          
+          if (data.overall_status === 'REJECTED_UNCLEAR') overallVerdict = 'REJECTED_UNCLEAR';
+          else if (data.overall_status === 'REJECTED_IRRELEVANT') overallVerdict = 'REJECTED_IRRELEVANT';
+          else if (data.overall_status === 'NEEDS_MANUAL_REVIEW') overallVerdict = 'NEEDS_MANUAL_REVIEW';
+          else overallVerdict = data.overall_status === 'COMPLIANT' ? 'COMPLIANT' : 'NON-COMPLIANT';
+          
           gs1Data = data.gs1_data;
-          results = data.checks.map((check: any, i: number) => ({
+          fssaiData = data.fssai_data;
+          mrpVerification = data.mrp_verification;
+          isImageClear = data.is_image_clear;
+          imageQualityFeedback = data.image_quality_feedback;
+          isProductLabel = data.is_product_label;
+          relevanceFeedback = data.relevance_feedback;
+          extractedFssai = data.extracted_fssai_number;
+          extractedBarcode = data.extracted_barcode;
+
+          results = (data.checks || []).map((check: any, i: number) => ({
             id: `rule-${i}`,
             name: check.rule_name,
             status: check.status === 'COMPLIANT' ? 'compliant' : 'missing',
@@ -188,6 +210,14 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
       isImported: isImported,
       notes: activeSamplePreset ? activeSamplePreset.description : undefined,
       gs1Data: gs1Data,
+      fssaiData: fssaiData,
+      mrpVerification: mrpVerification,
+      isImageClear: isImageClear,
+      imageQualityFeedback: imageQualityFeedback,
+      isProductLabel: isProductLabel,
+      relevanceFeedback: relevanceFeedback,
+      extractedFssai: extractedFssai,
+      extractedBarcode: extractedBarcode,
     };
 
     setIsScanning(false);

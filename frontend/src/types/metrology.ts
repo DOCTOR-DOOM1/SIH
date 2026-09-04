@@ -24,10 +24,42 @@ export interface DeclarationResult {
   details: string;
   requirementText: string;
   legalCitation: string;
-  confidence: number;
+  confidence?: number;
   violationReason?: string;
   fontSizeNeedsCheck?: boolean;
   estimatedHeightMm?: number;
+}
+
+export interface GS1Data {
+  gtin_found: boolean;
+  gtin?: string;
+  registered_company?: string;
+  product_description?: string;
+  registered_mrp?: number;
+}
+
+export interface FSSAIData {
+  is_registered: boolean;
+  license_number?: string;
+  company_name?: string;
+  status_message?: string;
+}
+
+export interface MRPVerification {
+  is_match: boolean;
+  extracted_mrp?: number;
+  registered_mrp?: number;
+  verification_message: string;
+}
+
+export interface ComplianceCheck {
+  rule_name: string;
+  status: string;
+  extracted_value?: string;
+  rule_clause_citation?: string;
+  explanation_of_extraction?: string;
+  reasoning: string;
+  confidence_score?: number;
 }
 
 export interface FontSizeAdvisory {
@@ -37,13 +69,6 @@ export interface FontSizeAdvisory {
   guidanceTable: string;
 }
 
-export interface GS1Data {
-  gtin_found: boolean;
-  gtin?: string;
-  registered_company?: string;
-  product_description?: string;
-}
-
 export interface ScanRecord {
   id: string;
   timestamp: string;
@@ -51,7 +76,7 @@ export interface ScanRecord {
   officerBadge: string;
   station: string;
   productName: string;
-  overallVerdict: 'COMPLIANT' | 'NON-COMPLIANT';
+  overallVerdict: 'COMPLIANT' | 'NON-COMPLIANT' | 'REJECTED_UNCLEAR' | 'REJECTED_IRRELEVANT' | 'NEEDS_MANUAL_REVIEW';
   results: DeclarationResult[];
   imageThumbnail: string;
   fullExtractedText: string;
@@ -60,6 +85,14 @@ export interface ScanRecord {
   isImported: boolean;
   notes?: string;
   gs1Data?: GS1Data;
+  fssaiData?: FSSAIData;
+  mrpVerification?: MRPVerification;
+  isImageClear?: boolean;
+  imageQualityFeedback?: string;
+  isProductLabel?: boolean;
+  relevanceFeedback?: string;
+  extractedFssai?: string;
+  extractedBarcode?: string;
 }
 
 export interface OfficerProfile {

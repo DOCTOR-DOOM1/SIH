@@ -14,7 +14,8 @@ def perform_mock_gs1_lookup(raw_ocr_text: str) -> dict:
             "gtin_found": True,
             "gtin": gtin,
             "registered_company": "Demo FMCG Pvt Ltd",
-            "product_description": "Standard Packaged Good - 500g"
+            "product_description": "Standard Packaged Good - 500g",
+            "registered_mrp": 60.00
         }
     
     # If no barcode found in text, maybe it was a bad scan or not present
@@ -25,12 +26,14 @@ def perform_mock_gs1_lookup(raw_ocr_text: str) -> dict:
             "gtin_found": True,
             "gtin": "8901234567890",
             "registered_company": "Acme Corp India (Registered via GS1)",
-            "product_description": "Acme Brand Packaged Food - 500g"
+            "product_description": "Acme Brand Packaged Food - 500g",
+            "registered_mrp": 50.00
         }
 
     return {
         "gtin_found": False,
         "gtin": None,
         "registered_company": None,
-        "product_description": None
+        "product_description": None,
+        "registered_mrp": None
     }

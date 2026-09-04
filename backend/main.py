@@ -42,22 +42,60 @@ async def analyze_label(image: UploadFile = File(...)):
         except Exception as e:
             print(f"Firebase Upload Error: {e}")
 
-    # 3. Gemini Multimodal Analysis (OCR + Compliance)
-    report_dict = evaluate_compliance_with_image(image_bytes)
+from services.fssai_service import perform_mock_fssai_lookup
     
-    # 4. GS1 Mock Lookup
-    report_dict["gs1_data"] = perform_mock_gs1_lookup(report_dict.get("raw_ocr_text", ""))
+    # 3. Gemini Multimodal Analysis (OCR + Triage + Compliance)
+    gemini_result = evaluate_compliance_with_image(image_bytes)
+    report_dict = gemini_result.copy()
 
-    # 5. Human Review Override
-    # Override status if confidence is below threshold to push to Review Queue
-    if report_dict.get("confidence_score", 1.0) < 0.75:
+    # If the image is rejected, skip the lookups
+    if report_dict.get("overall_status") in ["REJECTED_UNCLEAR", "REJECTED_IRRELEVANT"]:
+        report_dict["gs1_data"] = None
+        report_dict["fssai_data"] = None
+        report_dict["mrp_verification"] = None
+    else:
+        # 4. GS1 Mock Lookup
+        barcode_query = report_dict.get("extracted_barcode") or report_dict.get("raw_ocr_text", "")
+        gs1_data = perform_mock_gs1_lookup(barcode_query)
+        report_dict["gs1_data"] = gs1_data
+
+        # 5. FSSAI Mock Lookup
+        fssai_number = report_dict.get("extracted_fssai_number", "")
+        fssai_data = perform_mock_fssai_lookup(fssai_number)
+        report_dict["fssai_data"] = fssai_data.model_dump()
+
+        # 6. MRP Forgery Check
+        gemini_mrp = report_dict.get("extracted_mrp_value")
+        registered_mrp = gs1_data.get("registered_mrp")
+        
+        mrp_verification = {
+            "extracted_mrp": gemini_mrp,
+            "registered_mrp": registered_mrp,
+            "is_match": False,
+            "verification_message": "Verification failed."
+        }
+        
+        if gemini_mrp is not None and registered_mrp is not None:
+            if abs(gemini_mrp - registered_mrp) < 0.01:
+                mrp_verification["is_match"] = True
+                mrp_verification["verification_message"] = "Extracted MRP matches registered price."
+            else:
+                mrp_verification["verification_message"] = f"Forgery Alert: Printed MRP (Rs. {gemini_mrp}) does not match registered MRP (Rs. {registered_mrp})."
+        elif gemini_mrp is None:
+            mrp_verification["verification_message"] = "Could not extract MRP from image."
+        elif registered_mrp is None:
+            mrp_verification["verification_message"] = "Product has no registered MRP in database."
+            
+        report_dict["mrp_verification"] = mrp_verification
+
+    # 7. Human Review Override
+    if report_dict.get("confidence_score", 1.0) < 0.75 and report_dict.get("overall_status") not in ["REJECTED_UNCLEAR", "REJECTED_IRRELEVANT"]:
         report_dict["overall_status"] = "NEEDS_MANUAL_REVIEW"
     
-    # Fallbacks in case Gemini misses it
     if "raw_ocr_text" not in report_dict or not report_dict["raw_ocr_text"]:
         report_dict["raw_ocr_text"] = "OCR Extraction failed."
 
-    # 6. Log to Firestore
+    # 8. Log to Firestore
     if firebase_admin._apps:
         try:
             db = get_firestore_client()
