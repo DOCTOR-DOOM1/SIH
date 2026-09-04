@@ -6,6 +6,7 @@ from services.vision_service import extract_text_and_boxes
 from services.opencv_service import analyze_bounding_boxes
 from services.gemini_service import evaluate_compliance_with_image
 from services.gs1_service import perform_live_barcode_lookup
+from services.fssai_service import perform_mock_fssai_lookup
 import uuid
 import time
 import firebase_admin
@@ -45,7 +46,7 @@ async def analyze_label(
         except Exception as e:
             print(f"Firebase Upload Error: {e}")
 
-from services.fssai_service import perform_mock_fssai_lookup
+
     
     # 3. Gemini Multimodal Analysis (OCR + Triage + Compliance)
     gemini_result = evaluate_compliance_with_image(image_bytes)
