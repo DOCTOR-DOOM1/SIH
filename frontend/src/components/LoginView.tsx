@@ -22,8 +22,8 @@ interface LoginViewProps {
 
 const PRESET_OFFICERS: Array<OfficerProfile & { username: string }> = [
   {
-    username: 'r.k.verma@metrology.gov.in',
-    name: 'R. K. Verma',
+    username: 'tukaram.mundhe@metrology.gov.in',
+    name: 'Tukaram Mundhe',
     badgeId: '#OFF-26034-SIH',
     designation: 'Senior Legal Metrology Inspector',
     station: 'New Delhi Central Inspection Wing',
