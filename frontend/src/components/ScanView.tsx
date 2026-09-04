@@ -132,7 +132,7 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
         const formData = new FormData();
         formData.append('image', blob, 'upload.jpg');
         
-        const response = await fetch('http://localhost:8000/api/v1/analyze-label', {
+        const response = await fetch('https://sih-or8t.onrender.com/api/v1/analyze-label', {
           method: 'POST',
           body: formData,
         });
