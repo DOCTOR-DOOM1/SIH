@@ -8,7 +8,10 @@ import {
   CheckCircle2,
   ShieldCheck,
   Zap,
+  ScanLine,
+  X
 } from 'lucide-react';
+import { BarcodeScanner } from './BarcodeScanner';
 import { SAMPLE_PACKAGES } from '../data/samplePackages';
 import { OfficerProfile, SamplePackagePreset, ScanRecord, FontSizeAdvisory, DeclarationResult } from '../types/metrology';
 import { validateDeclarations } from '../logic/validator';
@@ -27,6 +30,8 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [activeSampleId, setActiveSampleId] = useState<string | null>(null);
   const [activeSamplePreset, setActiveSamplePreset] = useState<SamplePackagePreset | null>(null);
+  const [scannedBarcode, setScannedBarcode] = useState<string | null>(null);
+  const [showScanner, setShowScanner] = useState<boolean>(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const cameraInputRef = useRef<HTMLInputElement>(null);
@@ -139,8 +144,12 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
         const blob = await resBlob.blob();
         const formData = new FormData();
         formData.append('image', blob, 'upload.jpg');
+        if (scannedBarcode) {
+          formData.append('barcode', scannedBarcode);
+        }
         
-        const response = await fetch('https://sih-or8t.onrender.com/api/v1/analyze-label', {
+        // Using localhost to test the new barcode integration locally
+        const response = await fetch('http://localhost:8000/api/v1/analyze-label', {
           method: 'POST',
           body: formData,
         });
@@ -275,8 +284,28 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
         </div>
       </div>
 
+      {showScanner && (
+        <BarcodeScanner
+          onScanSuccess={(code) => {
+            setScannedBarcode(code);
+            setShowScanner(false);
+          }}
+          onClose={() => setShowScanner(false)}
+        />
+      )}
+
       {/* Upload Zone / Active Image Card */}
-      <div className="rounded-3xl border border-zinc-800 bg-[#181818] p-6 sm:p-8 shadow-xl space-y-6">
+      <div className="rounded-3xl border border-zinc-800 bg-[#181818] p-6 sm:p-8 shadow-xl space-y-6 relative">
+        {scannedBarcode && (
+          <div className="absolute top-6 right-6 bg-green-500/10 border border-green-500/20 text-green-400 px-3 py-1.5 rounded-lg text-xs font-mono font-bold flex items-center gap-2 animate-in fade-in z-10">
+            <CheckCircle2 size={14} />
+            <span>GTIN: {scannedBarcode}</span>
+            <button onClick={() => setScannedBarcode(null)} className="ml-2 text-zinc-500 hover:text-red-400">
+              <X size={12} />
+            </button>
+          </div>
+        )}
+
         {errorMessage && (
           <div className="flex items-center gap-2 rounded-xl bg-red-500/10 border border-red-500/30 p-3 text-xs text-red-400">
             <AlertCircle size={16} />
@@ -331,6 +360,18 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
               >
                 <Camera size={15} />
                 <span>Use Camera</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setShowScanner(true);
+                }}
+                className="px-5 py-2.5 border border-blue-500/30 bg-blue-500/10 rounded-xl text-xs font-bold text-blue-400 hover:bg-blue-500/20 transition-colors uppercase tracking-widest flex items-center gap-2"
+              >
+                <ScanLine size={15} />
+                <span>Scan Barcode</span>
               </button>
             </div>
 

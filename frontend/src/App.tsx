@@ -298,7 +298,7 @@ export default function App() {
         {/* Sidebar Footer with 2011 Rules button & Officer Credential badge */}
         <div className="mt-auto p-8 space-y-4">
           <a
-            href="https://github.com/MPRADISH/404-FOUND-INTERNAL-FINAL"
+            href="https://github.com/DOCTOR-DOOM1/SIH"
             target="_blank"
             rel="noopener noreferrer"
             className="w-full flex items-center justify-center gap-2.5 px-3 py-2 rounded-xl bg-zinc-800 text-xs font-semibold text-white hover:bg-zinc-700 transition-colors"

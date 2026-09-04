@@ -1,11 +1,11 @@
-from fastapi import FastAPI, UploadFile, File
+from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
 from schemas import LabelComplianceReport, ComplianceRuleCheck
 from firebase_app import get_firestore_client, get_storage_bucket
 from services.vision_service import extract_text_and_boxes
 from services.opencv_service import analyze_bounding_boxes
 from services.gemini_service import evaluate_compliance_with_image
-from services.gs1_service import perform_mock_gs1_lookup
+from services.gs1_service import perform_live_barcode_lookup
 import uuid
 import time
 import firebase_admin
@@ -25,7 +25,10 @@ def read_root():
     return {"message": "Legal Metrology Label Compliance Checker API is running"}
 
 @app.post("/api/v1/analyze-label", response_model=LabelComplianceReport)
-async def analyze_label(image: UploadFile = File(...)):
+async def analyze_label(
+    image: UploadFile = File(...),
+    barcode: str = Form(None)
+):
     # 1. Read image bytes
     image_bytes = await image.read()
     
@@ -54,9 +57,9 @@ from services.fssai_service import perform_mock_fssai_lookup
         report_dict["fssai_data"] = None
         report_dict["mrp_verification"] = None
     else:
-        # 4. GS1 Mock Lookup
-        barcode_query = report_dict.get("extracted_barcode") or report_dict.get("raw_ocr_text", "")
-        gs1_data = perform_mock_gs1_lookup(barcode_query)
+        # 4. GS1 Live/Mock Lookup
+        barcode_query = barcode or report_dict.get("extracted_barcode") or report_dict.get("raw_ocr_text", "")
+        gs1_data = perform_live_barcode_lookup(barcode_query)
         report_dict["gs1_data"] = gs1_data
 
         # 5. FSSAI Mock Lookup
