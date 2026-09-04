@@ -148,8 +148,8 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
           formData.append('barcode', scannedBarcode);
         }
         
-        // Using localhost to test the new barcode integration locally
-        const response = await fetch('http://localhost:8000/api/v1/analyze-label', {
+        // Using production Render URL
+        const response = await fetch('https://sih-or8t.onrender.com/api/v1/analyze-label', {
           method: 'POST',
           body: formData,
         });
