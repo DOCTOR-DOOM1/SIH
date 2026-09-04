@@ -48,7 +48,7 @@ const PRESET_OFFICERS: Array<OfficerProfile & { username: string }> = [
 ];
 
 export const LoginView: React.FC<LoginViewProps> = ({ onLogin, isDark = true, onToggleTheme }) => {
-  const [username, setUsername] = useState<string>('r.k.verma@metrology.gov.in');
+  const [username, setUsername] = useState<string>('tukaram.mundhe@metrology.gov.in');
   const [password, setPassword] = useState<string>('LM-Inspector@2025');
   const [station, setStation] = useState<string>('New Delhi Central Inspection Wing');
   const [showPassword, setShowPassword] = useState<boolean>(false);

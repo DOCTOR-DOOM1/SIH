@@ -28,7 +28,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
   const handleQuickInspector = (role: 'central' | 'state' | 'customs') => {
     if (role === 'central') {
       setFormData({
-        name: 'R. K. Verma',
+        name: 'Tukaram Mundhe',
         badgeId: 'LM-DL-2024-884',
         designation: 'Senior Legal Metrology Inspector',
         station: 'New Delhi Central Inspection Wing',

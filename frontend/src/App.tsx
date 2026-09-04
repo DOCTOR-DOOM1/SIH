@@ -26,7 +26,7 @@ import { ThemeToggle } from './components/ThemeToggle';
 import { exportEnforcementPdf } from './utils/pdfGenerator';
 
 const DEFAULT_OFFICER: OfficerProfile = {
-  name: 'R. K. Verma',
+  name: 'Tukaram Mundhe',
   badgeId: '#OFF-26034-SIH',
   designation: 'Senior Legal Metrology Inspector',
   station: 'New Delhi Central Inspection Wing',
