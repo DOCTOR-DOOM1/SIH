@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY:-your_api_key_here}
+      - FIREBASE_STORAGE_BUCKET=${FIREBASE_STORAGE_BUCKET:-your-bucket.appspot.com}
+    volumes:
+      - ./backend/credentials.json:/app/credentials.json:ro
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    depends_on:
+      - backend

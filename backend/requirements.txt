@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+pydantic
+python-multipart
+google-cloud-vision
+opencv-python-headless
+google-genai
+firebase-admin
+python-dotenv
+pytest
+httpx
