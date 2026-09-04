@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import {
+import { useState, useEffect } from 'react';
   Scale,
   LayoutDashboard,
   Scan,
@@ -7,8 +6,6 @@ import {
   BookOpen,
   ShieldCheck,
   FileDown,
-  RotateCcw,
-  Sparkles,
   Menu,
   X,
   FileCheck2,

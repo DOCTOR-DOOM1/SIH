@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ShieldCheck, UserCheck, MapPin, BadgeAlert, Sparkles, X } from 'lucide-react';
+import { useState } from 'react';
+import { ShieldCheck, Sparkles, X } from 'lucide-react';
 import { OfficerProfile } from '../types/metrology';
 
 interface AuthModalProps {
