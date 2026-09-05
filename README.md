@@ -10,7 +10,7 @@ This application allows users to upload images of packaged goods. The system ext
 
 - **Frontend:** React (TypeScript) + Vite + Tailwind CSS + Lucide React + HTML5-QRCode
 - **Backend:** Python + FastAPI + Pydantic + Requests
-- **AI/ML Pipeline:** Google Cloud Vision API (OCR), OpenCV (Bounding Box Math), Gemini 3.6 Flash (Reasoning)
+- **AI/ML Pipeline:** Google Cloud Vision API (OCR), OpenCV (Bounding Box Math), Gemini 2.0 Flash (Reasoning)
 - **Database/Storage:** Firebase Admin (Firestore & Storage)
 - **External APIs:** Open Food Facts API (Live GS1 Barcode Lookup)
 
