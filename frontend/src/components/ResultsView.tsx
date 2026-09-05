@@ -314,7 +314,7 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
                   <h4 className="font-bold text-sm mb-1 text-white font-playfair">
                     {decl.name}
                   </h4>
-                  <p className="text-xs text-zinc-500 italic mb-4 leading-relaxed line-clamp-2">
+                  <p className="text-xs text-zinc-500 italic mb-4 leading-relaxed">
                     {decl.details}
                   </p>
                 </div>
@@ -461,20 +461,43 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
               </div>
               
               {record.gs1Data.gtin_found ? (
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-                  <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
-                    <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">GTIN (Barcode)</span>
-                    <span className="font-mono text-amber-400">{record.gs1Data.gtin}</span>
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                    <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
+                      <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">GTIN (Barcode)</span>
+                      <span className="font-mono text-amber-400">{record.gs1Data.gtin}</span>
+                    </div>
+                    <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
+                      <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Registered Company</span>
+                      <span className="text-zinc-200 font-semibold">{record.gs1Data.registered_company}</span>
+                    </div>
+                    <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
+                      <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Product Description</span>
+                      <span className="text-zinc-300 text-sm">{record.gs1Data.product_description}</span>
+                    </div>
                   </div>
-                  <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
-                    <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Registered Company</span>
-                    <span className="text-zinc-200 font-semibold">{record.gs1Data.registered_company}</span>
-                  </div>
-                  <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
-                    <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Product Description</span>
-                    <span className="text-zinc-300 text-sm">{record.gs1Data.product_description}</span>
-                  </div>
-                </div>
+                  {(record.gs1Data.image_url || record.gs1Data.ingredients_text || record.gs1Data.nutrition_grades) && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+                      {record.gs1Data.image_url && (
+                        <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl flex items-center justify-center">
+                          <img src={record.gs1Data.image_url} alt="Product" className="max-h-24 object-contain rounded" />
+                        </div>
+                      )}
+                      {record.gs1Data.ingredients_text && (
+                        <div className={`bg-black/50 border border-zinc-800 p-3 rounded-xl col-span-1 ${record.gs1Data.image_url ? 'sm:col-span-2' : 'sm:col-span-3'}`}>
+                          <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Ingredients</span>
+                          <span className="text-zinc-300 text-xs line-clamp-4">{record.gs1Data.ingredients_text}</span>
+                        </div>
+                      )}
+                      {record.gs1Data.nutrition_grades && (
+                        <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
+                          <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Nutrition Grade</span>
+                          <span className="text-zinc-200 font-semibold uppercase">{record.gs1Data.nutrition_grades}</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </>
               ) : (
                 <div className="bg-red-500/5 border border-red-500/20 rounded-xl p-4 text-sm text-red-400 flex items-start gap-3">
                   <ShieldAlert size={18} className="shrink-0 mt-0.5" />

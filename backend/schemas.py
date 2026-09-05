@@ -16,6 +16,9 @@ class GS1Data(BaseModel):
     registered_company: Optional[str] = None
     product_description: Optional[str] = None
     registered_mrp: Optional[float] = None
+    image_url: Optional[str] = None
+    ingredients_text: Optional[str] = None
+    nutrition_grades: Optional[str] = None
 
 class FSSAIData(BaseModel):
     license_number: Optional[str] = None

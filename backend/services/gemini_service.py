@@ -13,7 +13,10 @@ def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
     try:
         client = genai.Client(api_key=api_key)
         
-        prompt = """
+        from datetime import datetime
+        current_date = datetime.now().strftime("%B %Y")
+        
+        prompt = f"""
         You are a Principal Legal Metrology Compliance Officer in India. 
         Analyze the provided image of a packaged goods label and strictly evaluate compliance.
         
@@ -30,7 +33,7 @@ def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
         PHASE 3: CRITICAL EVALUATION RULES
         1. **Maximum Retail Price (MRP)**: The exact phrase "inclusive of all taxes" MUST be present next to or below the MRP. If it says just "MRP Rs. 50", it is strictly NON_COMPLIANT.
         2. **Net Quantity**: Must be in standard metric units (e.g., g, kg, ml, L).
-        3. **Date of Manufacture/Packaging**: Must be clearly stated with a valid past or current date. Future dates are strictly NON_COMPLIANT.
+        3. **Date of Manufacture/Packaging**: Must be clearly stated with a valid past or current date relative to {current_date}. Any older date is completely legal and COMPLIANT. Future dates are strictly NON_COMPLIANT.
         4. **Manufacturer / Importer Details**: Name and complete address with a valid PIN code must be present.
         5. **Consumer Care Details**: Must include a phone number and/or an email address.
         6. **Commodity Name**: Common generic name of the product must be stated.

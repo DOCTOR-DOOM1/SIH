@@ -36,6 +36,9 @@ export interface GS1Data {
   registered_company?: string;
   product_description?: string;
   registered_mrp?: number;
+  image_url?: string;
+  ingredients_text?: string;
+  nutrition_grades?: string;
 }
 
 export interface FSSAIData {

@@ -24,6 +24,9 @@ def perform_live_barcode_lookup(raw_ocr_text: str) -> dict:
                     product = data.get("product", {})
                     brand = product.get("brands", "Unknown Brand")
                     name = product.get("product_name", "Unknown Product")
+                    image_url = product.get("image_url")
+                    ingredients_text = product.get("ingredients_text")
+                    nutrition_grades = product.get("nutrition_grades_tags", [None])[0] if product.get("nutrition_grades_tags") else product.get("nutrition_grades")
                     
                     # Simulated MRP logic based on GTIN hash just for demo
                     # This ensures the MRP forgery check has something to compare against
@@ -34,7 +37,10 @@ def perform_live_barcode_lookup(raw_ocr_text: str) -> dict:
                         "gtin": gtin,
                         "registered_company": brand,
                         "product_description": name,
-                        "registered_mrp": round(random_mrp, 2)
+                        "registered_mrp": round(random_mrp, 2),
+                        "image_url": image_url,
+                        "ingredients_text": ingredients_text,
+                        "nutrition_grades": nutrition_grades
                     }
         except Exception as e:
             print(f"OpenFoodFacts API Error: {e}")
