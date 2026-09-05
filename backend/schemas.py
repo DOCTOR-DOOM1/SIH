@@ -26,11 +26,7 @@ class FSSAIData(BaseModel):
     company_name: Optional[str] = None
     status_message: str
 
-class MRPVerification(BaseModel):
-    extracted_mrp: Optional[float] = None
-    registered_mrp: Optional[float] = None
-    is_match: bool
-    verification_message: str
+
 
 class GeminiAnalysisResult(BaseModel):
     is_image_clear: bool
@@ -62,4 +58,3 @@ class LabelComplianceReport(BaseModel):
     # Enriched Mock Verification Data
     gs1_data: Optional[GS1Data] = None
     fssai_data: Optional[FSSAIData] = None
-    mrp_verification: Optional[MRPVerification] = None

@@ -117,7 +117,6 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
 
     let gs1Data = undefined;
     let fssaiData = undefined;
-    let mrpVerification = undefined;
     let isImageClear = true;
     let imageQualityFeedback = '';
     let isProductLabel = true;
@@ -165,7 +164,6 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
           
           gs1Data = data.gs1_data;
           fssaiData = data.fssai_data;
-          mrpVerification = data.mrp_verification;
           isImageClear = data.is_image_clear;
           imageQualityFeedback = data.image_quality_feedback;
           isProductLabel = data.is_product_label;
@@ -220,7 +218,6 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
       notes: activeSamplePreset ? activeSamplePreset.description : undefined,
       gs1Data: gs1Data,
       fssaiData: fssaiData,
-      mrpVerification: mrpVerification,
       isImageClear: isImageClear,
       imageQualityFeedback: imageQualityFeedback,
       isProductLabel: isProductLabel,

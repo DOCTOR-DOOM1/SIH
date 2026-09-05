@@ -553,46 +553,7 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
             </div>
           )}
 
-          {/* MRP Forgery Check Card */}
-          {record.mrpVerification && (
-            <div className={`md:col-span-2 bg-[#181818] border p-6 rounded-2xl space-y-4 ${record.mrpVerification.is_match ? 'border-green-500/30 shadow-[0_0_15px_rgba(34,197,94,0.1)]' : 'border-red-500/30 shadow-[0_0_15px_rgba(239,68,68,0.1)]'}`}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <div className={`p-2 rounded-lg ${record.mrpVerification.is_match ? 'bg-green-500/20 text-green-400' : 'bg-red-500/20 text-red-400'}`}>
-                    {record.mrpVerification.is_match ? <ShieldCheck size={20} /> : <AlertTriangle size={20} />}
-                  </div>
-                  <div>
-                    <h4 className="text-sm font-bold text-white font-playfair flex items-center gap-2">
-                      Anti-Forgery Price Check (MRP)
-                      {record.mrpVerification.is_match ? (
-                         <span className="bg-green-500/20 text-green-400 border border-green-500/30 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-widest">Match</span>
-                      ) : (
-                         <span className="bg-red-500/20 text-red-400 border border-red-500/30 px-2 py-0.5 rounded text-[9px] font-mono uppercase tracking-widest">Mismatch / Suspicious</span>
-                      )}
-                    </h4>
-                    <p className="text-xs text-zinc-400">Comparing printed MRP with GS1 Manufacturer Registry.</p>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
-                  <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Printed MRP (Extracted)</span>
-                  <span className="font-mono text-zinc-200 text-xl font-bold">{record.mrpVerification.extracted_mrp ? `Rs. ${record.mrpVerification.extracted_mrp}` : '--'}</span>
-                </div>
-                <div className="bg-black/50 border border-zinc-800 p-3 rounded-xl">
-                  <span className="text-[10px] font-mono text-zinc-500 uppercase block mb-1">Registered MRP (GS1 Database)</span>
-                  <span className="font-mono text-amber-400 text-xl font-bold">{record.mrpVerification.registered_mrp ? `Rs. ${record.mrpVerification.registered_mrp}` : '--'}</span>
-                </div>
-              </div>
-              
-              {!record.mrpVerification.is_match && (
-                 <div className="bg-red-500/10 border border-red-500/20 rounded-xl p-3 text-xs text-red-400 font-medium">
-                   {record.mrpVerification.verification_message}
-                 </div>
-              )}
-            </div>
-          )}
+
 
           {/* OCR Blocks Breakdown with Confidences */}
           {record.textBlocks && record.textBlocks.length > 0 && (

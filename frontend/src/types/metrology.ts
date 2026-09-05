@@ -89,7 +89,6 @@ export interface ScanRecord {
   notes?: string;
   gs1Data?: GS1Data;
   fssaiData?: FSSAIData;
-  mrpVerification?: MRPVerification;
   isImageClear?: boolean;
   imageQualityFeedback?: string;
   isProductLabel?: boolean;

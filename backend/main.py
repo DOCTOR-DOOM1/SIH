@@ -56,7 +56,6 @@ async def analyze_label(
     if report_dict.get("overall_status") in ["REJECTED_UNCLEAR", "REJECTED_IRRELEVANT"]:
         report_dict["gs1_data"] = None
         report_dict["fssai_data"] = None
-        report_dict["mrp_verification"] = None
     else:
         # 4. GS1 Live/Mock Lookup
         barcode_query = barcode or report_dict.get("extracted_barcode") or report_dict.get("raw_ocr_text", "")
@@ -68,29 +67,6 @@ async def analyze_label(
         fssai_data = perform_mock_fssai_lookup(fssai_number)
         report_dict["fssai_data"] = fssai_data.model_dump()
 
-        # 6. MRP Forgery Check
-        gemini_mrp = report_dict.get("extracted_mrp_value")
-        registered_mrp = gs1_data.get("registered_mrp")
-        
-        mrp_verification = {
-            "extracted_mrp": gemini_mrp,
-            "registered_mrp": registered_mrp,
-            "is_match": False,
-            "verification_message": "Verification failed."
-        }
-        
-        if gemini_mrp is not None and registered_mrp is not None:
-            if abs(gemini_mrp - registered_mrp) < 0.01:
-                mrp_verification["is_match"] = True
-                mrp_verification["verification_message"] = "Extracted MRP matches registered price."
-            else:
-                mrp_verification["verification_message"] = f"Forgery Alert: Printed MRP (Rs. {gemini_mrp}) does not match registered MRP (Rs. {registered_mrp})."
-        elif gemini_mrp is None:
-            mrp_verification["verification_message"] = "Could not extract MRP from image."
-        elif registered_mrp is None:
-            mrp_verification["verification_message"] = "Product has no registered MRP in database."
-            
-        report_dict["mrp_verification"] = mrp_verification
 
     # 7. Human Review Override
     if report_dict.get("confidence_score", 1.0) < 0.75 and report_dict.get("overall_status") not in ["REJECTED_UNCLEAR", "REJECTED_IRRELEVANT"]:
