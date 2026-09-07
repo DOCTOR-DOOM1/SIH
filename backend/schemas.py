@@ -38,6 +38,7 @@ class GeminiAnalysisResult(BaseModel):
     extracted_mrp_value: Optional[float] = None
     extracted_fssai_number: Optional[str] = None
     extracted_barcode: Optional[str] = None
+    extracted_batch_number: Optional[str] = None
     checks: List[ComplianceRuleCheck]
     raw_ocr_text: str
 
@@ -54,7 +55,11 @@ class LabelComplianceReport(BaseModel):
     extracted_mrp_value: Optional[float] = None
     extracted_fssai_number: Optional[str] = None
     extracted_barcode: Optional[str] = None
+    extracted_batch_number: Optional[str] = None
     
     # Enriched Mock Verification Data
     gs1_data: Optional[GS1Data] = None
     fssai_data: Optional[FSSAIData] = None
+    
+    # Ledger Verification
+    ledger_verification_message: Optional[str] = None

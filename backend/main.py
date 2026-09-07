@@ -7,6 +7,7 @@ from services.opencv_service import analyze_bounding_boxes
 from services.gemini_service import evaluate_compliance_with_image
 from services.gs1_service import perform_live_barcode_lookup
 from services.fssai_service import perform_mock_fssai_lookup
+from services.ledger_service import verify_batch_authenticity
 import uuid
 import time
 import firebase_admin
@@ -66,6 +67,18 @@ async def analyze_label(
         fssai_number = report_dict.get("extracted_fssai_number", "")
         fssai_data = perform_mock_fssai_lookup(fssai_number)
         report_dict["fssai_data"] = fssai_data.model_dump()
+        
+        # 6. Supply Chain Ledger / Counterfeit Velocity Check
+        batch_number = report_dict.get("extracted_batch_number")
+        gtin = gs1_data.get("gtin")
+        
+        if batch_number and gtin:
+            ledger_result = verify_batch_authenticity(gtin, batch_number)
+            report_dict["ledger_verification_message"] = ledger_result["message"]
+            if not ledger_result["is_authentic"]:
+                report_dict["overall_status"] = "NON_COMPLIANT (Counterfeit Cloned Batch)"
+        else:
+            report_dict["ledger_verification_message"] = "Batch Number or GTIN missing. Cannot verify supply chain ledger."
 
 
     # 7. Human Review Override

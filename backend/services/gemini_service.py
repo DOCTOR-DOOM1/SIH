@@ -26,9 +26,10 @@ def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
         If EITHER of the above is false, set `overall_status` to "REJECTED_UNCLEAR" or "REJECTED_IRRELEVANT" and you may skip the compliance checks.
 
         PHASE 2: DATA EXTRACTION FOR REGISTRIES
-        - `extracted_mrp_value`: Extract the numeric MRP value (e.g. if "MRP Rs. 50.00", return 50.0).
+        - `extracted_mrp_value`: Extract the numeric MRP value (e.g., return 50.0 if MRP is Rs 50).
         - `extracted_fssai_number`: Extract the 14-digit FSSAI license number if present.
         - `extracted_barcode`: Extract the 12 or 13 digit barcode (GTIN) number if printed as text.
+        - `extracted_batch_number`: Extract the exact alphanumeric string denoting the Batch Number, Lot Number, or B.No.
 
         PHASE 3: CRITICAL EVALUATION RULES
         1. **Maximum Retail Price (MRP)**: The exact phrase "inclusive of all taxes" MUST be present next to or below the MRP. If it says just "MRP Rs. 50", it is strictly NON_COMPLIANT.
