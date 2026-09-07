@@ -49,8 +49,12 @@ async def analyze_label(
 
 
     
-    # 3. Gemini Multimodal Analysis (OCR + Triage + Compliance)
-    gemini_result = evaluate_compliance_with_image(image_bytes)
+    # 3. Deterministic Data Gathering (Vision + OpenCV)
+    full_text, blocks = extract_text_and_boxes(image_bytes)
+    processed_blocks = analyze_bounding_boxes(blocks)
+    
+    # 4. Gemini Multimodal Analysis (Reasoning Engine)
+    gemini_result = evaluate_compliance_with_image(image_bytes, processed_blocks)
     report_dict = gemini_result.copy()
 
     # If the image is rejected, skip the lookups
@@ -58,17 +62,17 @@ async def analyze_label(
         report_dict["gs1_data"] = None
         report_dict["fssai_data"] = None
     else:
-        # 4. GS1 Live/Mock Lookup
-        barcode_query = barcode or report_dict.get("extracted_barcode") or report_dict.get("raw_ocr_text", "")
+        # 5. GS1 Live/Mock Lookup
+        barcode_query = barcode or report_dict.get("extracted_barcode") or full_text
         gs1_data = perform_live_barcode_lookup(barcode_query)
         report_dict["gs1_data"] = gs1_data
 
-        # 5. FSSAI Mock Lookup
+        # 6. FSSAI Mock Lookup
         fssai_number = report_dict.get("extracted_fssai_number", "")
         fssai_data = perform_mock_fssai_lookup(fssai_number)
         report_dict["fssai_data"] = fssai_data.model_dump()
         
-        # 6. Supply Chain Ledger / Counterfeit Velocity Check
+        # 7. Supply Chain Ledger / Counterfeit Velocity Check
         batch_number = report_dict.get("extracted_batch_number")
         gtin = gs1_data.get("gtin")
         
@@ -81,14 +85,14 @@ async def analyze_label(
             report_dict["ledger_verification_message"] = "Batch Number or GTIN missing. Cannot verify supply chain ledger."
 
 
-    # 7. Human Review Override
+    # 8. Human Review Override
     if report_dict.get("confidence_score", 1.0) < 0.75 and report_dict.get("overall_status") not in ["REJECTED_UNCLEAR", "REJECTED_IRRELEVANT"]:
         report_dict["overall_status"] = "NEEDS_MANUAL_REVIEW"
     
     if "raw_ocr_text" not in report_dict or not report_dict["raw_ocr_text"]:
         report_dict["raw_ocr_text"] = "OCR Extraction failed."
 
-    # 8. Log to Firestore
+    # 9. Log to Firestore
     if firebase_admin._apps:
         try:
             db = get_firestore_client()

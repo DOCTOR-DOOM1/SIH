@@ -3,8 +3,10 @@ from google import genai
 from google.genai import types
 from schemas import GeminiAnalysisResult
 import json
+import base64
+import time
 
-def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
+def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list) -> dict:
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key or api_key == "your_api_key_here":
         print("WARNING: Invalid GEMINI_API_KEY. Returning mock data.")
@@ -17,8 +19,16 @@ def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
         current_date = datetime.now().strftime("%B %Y")
         
         prompt = f"""
-        You are a Principal Legal Metrology Compliance Officer in India. 
-        Analyze the provided image of a packaged goods label and strictly evaluate compliance.
+        You are the Principal Legal Metrology Orchestrator in an Agentic Ensemble AI system. 
+        You are NOT responsible for raw OCR reading. That has already been done by a deterministic computer vision model.
+        
+        Below is the ground-truth deterministic text data extracted from the image by Google Cloud Vision, including OpenCV mathematical prominence scores for font sizing:
+        
+        DETERMINISTIC TEXT DATA:
+        {json.dumps(processed_blocks, indent=2)}
+        
+        Analyze the image visually ONLY for context (layout, coin reference, print quality). 
+        Use the deterministic text data provided above to strictly evaluate compliance against Legal Metrology rules.
         
         PHASE 1: IMAGE TRIAGE
         1. Determine `is_image_clear`: Is the text in the image clear enough to read? If it is severely blurry or illegible, set this to false and provide `image_quality_feedback`.
@@ -43,12 +53,13 @@ def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
         9. **7C. Counterfeit Verification (Forensic Print Quality)**: Analyze the micro-typography, barcode edges, and FSSAI logo. Look for ink bleeding, CMYK misalignment, blurred edges, or pixelation which indicates the packaging is a scanned reprint of an original wrapper. If these visual artifacts are present, flag as NON_COMPLIANT (Counterfeit Suspected).
         
         INSTRUCTIONS:
-        1. Extract all text from the label (OCR) into `raw_ocr_text`.
+        1. Parse the DETERMINISTIC TEXT DATA to populate the extraction fields. Do not try to OCR the image yourself for text.
         2. Evaluate all 9 rules. Create a separate check for each.
         3. `status` MUST be "COMPLIANT" or "NON_COMPLIANT".
-        4. `explanation_of_extraction` MUST quote the exact text fragment from the image or state the web search result.
+        4. `explanation_of_extraction` MUST quote the exact text fragment from the DETERMINISTIC TEXT DATA or state the web search result.
         5. `confidence_score` between 0.0 and 1.0.
         6. If all are COMPLIANT (and phase 1 passed), `overall_status` is "COMPLIANT". If any check fails, "NON_COMPLIANT".
+        7. Place all text from the JSON into `raw_ocr_text`.
         """
         
         import base64
