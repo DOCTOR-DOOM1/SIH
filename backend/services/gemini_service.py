@@ -6,7 +6,7 @@ import json
 import base64
 import time
 
-def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list) -> dict:
+def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, rag_match: dict = None) -> dict:
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key or api_key == "your_api_key_here":
         print("WARNING: Invalid GEMINI_API_KEY. Returning mock data.")
@@ -18,6 +18,23 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list) -
         from datetime import datetime
         current_date = datetime.now().strftime("%B %Y")
         
+        rag_instructions = ""
+        if rag_match:
+            rag_instructions = f"""
+        *** VERIFIED RAG MATCH FOUND ***
+        The system has matched this product against our highly verified internal registry. 
+        You MUST use this data as the absolute ground truth for evaluating counterfeits:
+        {json.dumps(rag_match, indent=2)}
+        
+        For Rule 7A, do NOT use Google Search. Simply compare the verified RAG data above against the physical package.
+        """
+        else:
+            rag_instructions = """
+        *** NO RAG MATCH FOUND ***
+        This product is not in our internal verified registry. 
+        For Rule 7A, you MUST use the Google Search tool to verify the `extracted_fssai_number` and `extracted_barcode` on the open web.
+        """
+        
         prompt = f"""
         You are the Principal Legal Metrology Orchestrator in an Agentic Ensemble AI system. 
         You are NOT responsible for raw OCR reading. That has already been done by a deterministic computer vision model.
@@ -26,6 +43,8 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list) -
         
         DETERMINISTIC TEXT DATA:
         {json.dumps(processed_blocks, indent=2)}
+        
+        {rag_instructions}
         
         Analyze the image visually ONLY for context (layout, coin reference, print quality). 
         Use the deterministic text data provided above to strictly evaluate compliance against Legal Metrology rules.
@@ -48,7 +67,7 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list) -
         4. **Manufacturer / Importer Details**: Name and complete address with a valid PIN code must be present.
         5. **Consumer Care Details**: Must include a phone number and/or an email address.
         6. **Commodity Name**: Common generic name of the product must be stated.
-        7. **7A. Counterfeit Verification (Web Grounding)**: You MUST use the Google Search tool to verify the `extracted_fssai_number` and `extracted_barcode`. Compare the web-grounded registered company name and official product details with the physical packaging. If the FSSAI/barcode belongs to a different company, flag as NON_COMPLIANT (Counterfeit).
+        7. **7A. Counterfeit Verification (Web/RAG Grounding)**: Compare the registered company name and official product details with the physical packaging. If the FSSAI/barcode belongs to a different company, flag as NON_COMPLIANT (Counterfeit).
         8. **7B. Counterfeit Verification (Spatial Coin Reference)**: Check if a standard coin is placed next to the product in the image. If present, use the coin's physical diameter as a mathematical scale. Estimate the thickness and overall dimensions of the packet. If the calculated physical volume/thickness heavily deviates from what is expected for the stated net weight (e.g., puffier or thicker plastic than the original brand), flag it as NON_COMPLIANT (Counterfeit Suspected).
         9. **7C. Counterfeit Verification (Forensic Print Quality)**: Analyze the micro-typography, barcode edges, and FSSAI logo. Look for ink bleeding, CMYK misalignment, blurred edges, or pixelation which indicates the packaging is a scanned reprint of an original wrapper. If these visual artifacts are present, flag as NON_COMPLIANT (Counterfeit Suspected).
         
@@ -56,7 +75,7 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list) -
         1. Parse the DETERMINISTIC TEXT DATA to populate the extraction fields. Do not try to OCR the image yourself for text.
         2. Evaluate all 9 rules. Create a separate check for each.
         3. `status` MUST be "COMPLIANT" or "NON_COMPLIANT".
-        4. `explanation_of_extraction` MUST quote the exact text fragment from the DETERMINISTIC TEXT DATA or state the web search result.
+        4. `explanation_of_extraction` MUST quote the exact text fragment from the DETERMINISTIC TEXT DATA or state the verification source (RAG/Web).
         5. `confidence_score` between 0.0 and 1.0.
         6. If all are COMPLIANT (and phase 1 passed), `overall_status` is "COMPLIANT". If any check fails, "NON_COMPLIANT".
         7. Place all text from the JSON into `raw_ocr_text`.

@@ -8,6 +8,7 @@ from services.gemini_service import evaluate_compliance_with_image
 from services.gs1_service import perform_live_barcode_lookup
 from services.fssai_service import perform_mock_fssai_lookup
 from services.ledger_service import verify_batch_authenticity
+from services.rag_service import lookup_in_rag
 import uuid
 import time
 import firebase_admin
@@ -53,8 +54,11 @@ async def analyze_label(
     full_text, blocks = extract_text_and_boxes(image_bytes)
     processed_blocks = analyze_bounding_boxes(blocks)
     
+    # 3.5 Check RAG Database
+    rag_match = lookup_in_rag(full_text, barcode)
+    
     # 4. Gemini Multimodal Analysis (Reasoning Engine)
-    gemini_result = evaluate_compliance_with_image(image_bytes, processed_blocks)
+    gemini_result = evaluate_compliance_with_image(image_bytes, processed_blocks, rag_match)
     report_dict = gemini_result.copy()
 
     # If the image is rejected, skip the lookups

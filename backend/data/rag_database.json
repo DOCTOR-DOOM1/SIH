@@ -1,0 +1,142 @@
+[
+    {
+        "gtin": "8901491503037",
+        "company_name": "PepsiCo India Holdings Pvt. Ltd.",
+        "product_name": "Lays Classic Salted - 50g",
+        "fssai_number": "10014064000435",
+        "address": "Level 3, DLF Centre, Sansad Marg, New Delhi 110001"
+    },
+    {
+        "gtin": "8901058862002",
+        "company_name": "Nestle India Ltd.",
+        "product_name": "Maggi 2-Minute Noodles",
+        "fssai_number": "10012011000168",
+        "address": "Nestle House, Jacaranda Marg, M Block, DLF City Phase II, Gurgaon 122002"
+    },
+    {
+        "gtin": "8901063012751",
+        "company_name": "Britannia Industries Ltd.",
+        "product_name": "Britannia Good Day Cashew Cookies",
+        "fssai_number": "10015043001129",
+        "address": "5/1A Hungerford Street, Kolkata, West Bengal 700017"
+    },
+    {
+        "gtin": "8901719116773",
+        "company_name": "Parle Products Pvt. Ltd.",
+        "product_name": "Parle-G Original Gluco Biscuits",
+        "fssai_number": "10013022002253",
+        "address": "V.S. Khandekar Marg, Vile Parle East, Mumbai 400057"
+    },
+    {
+        "gtin": "8901113211516",
+        "company_name": "Gujarat Cooperative Milk Marketing Federation Ltd.",
+        "product_name": "Amul Pasteurised Butter",
+        "fssai_number": "10012021000071",
+        "address": "Amul Dairy Road, Anand, Gujarat 388001"
+    },
+    {
+        "gtin": "8901030306103",
+        "company_name": "Hindustan Unilever Ltd.",
+        "product_name": "Kissan Fresh Tomato Ketchup",
+        "fssai_number": "10013022001897",
+        "address": "Unilever House, B.D. Sawant Marg, Chakala, Andheri (E), Mumbai 400099"
+    },
+    {
+        "gtin": "8901207010464",
+        "company_name": "Dabur India Ltd.",
+        "product_name": "Dabur Honey",
+        "fssai_number": "10012011000618",
+        "address": "8/3 Asaf Ali Road, New Delhi 110002"
+    },
+    {
+        "gtin": "8901491101905",
+        "company_name": "PepsiCo India Holdings Pvt. Ltd.",
+        "product_name": "Kurkure Masala Munch",
+        "fssai_number": "10014064000435",
+        "address": "Level 3, DLF Centre, Sansad Marg, New Delhi 110001"
+    },
+    {
+        "gtin": "7622201402283",
+        "company_name": "Mondelez India Foods Private Limited",
+        "product_name": "Cadbury Dairy Milk Chocolate",
+        "fssai_number": "10014022002711",
+        "address": "Unit No. 2001, 20th Floor, Tower - 3, India Bulls Finance Centre, Parel, Mumbai 400013"
+    },
+    {
+        "gtin": "8901764012273",
+        "company_name": "ITC Limited",
+        "product_name": "Aashirvaad Whole Wheat Atta",
+        "fssai_number": "10012031000312",
+        "address": "Virginia House, 37 J.L. Nehru Road, Kolkata 700071"
+    },
+    {
+        "gtin": "8901015077478",
+        "company_name": "Hindustan Unilever Ltd.",
+        "product_name": "Surf Excel Easy Wash Detergent Powder",
+        "fssai_number": "10013022001897",
+        "address": "Unilever House, B.D. Sawant Marg, Chakala, Andheri (E), Mumbai 400099"
+    },
+    {
+        "gtin": "8901526101111",
+        "company_name": "Tata Consumer Products Ltd.",
+        "product_name": "Tata Salt",
+        "fssai_number": "10014031001025",
+        "address": "11/13 Botawala Building, 1st Floor, Horniman Circle, Mumbai 400001"
+    },
+    {
+        "gtin": "8901043000579",
+        "company_name": "Coca-Cola India Pvt. Ltd.",
+        "product_name": "Thums Up Cola",
+        "fssai_number": "10012011000558",
+        "address": "Enkay Towers, Udyog Vihar Phase V, Gurgaon 122016"
+    },
+    {
+        "gtin": "8901058863009",
+        "company_name": "Nestle India Ltd.",
+        "product_name": "Nescafe Classic Instant Coffee",
+        "fssai_number": "10012011000168",
+        "address": "Nestle House, Jacaranda Marg, M Block, DLF City Phase II, Gurgaon 122002"
+    },
+    {
+        "gtin": "8901719101113",
+        "company_name": "Parle Products Pvt. Ltd.",
+        "product_name": "Parle Hide & Seek Chocolate Chip Cookies",
+        "fssai_number": "10013022002253",
+        "address": "V.S. Khandekar Marg, Vile Parle East, Mumbai 400057"
+    },
+    {
+        "gtin": "8901764022227",
+        "company_name": "ITC Limited",
+        "product_name": "Sunfeast Dark Fantasy Choco Fills",
+        "fssai_number": "10012031000312",
+        "address": "Virginia House, 37 J.L. Nehru Road, Kolkata 700071"
+    },
+    {
+        "gtin": "8904004400021",
+        "company_name": "Patanjali Ayurved Ltd.",
+        "product_name": "Patanjali Dant Kanti Toothpaste",
+        "fssai_number": "10014012000266",
+        "address": "Patanjali Food & Herbal Park, Laksar Road, Padartha, Haridwar 249404"
+    },
+    {
+        "gtin": "8901138012627",
+        "company_name": "Haldiram Snacks Pvt. Ltd.",
+        "product_name": "Haldiram's Bhujia Sev",
+        "fssai_number": "10013051000541",
+        "address": "B-1/H-3, Mohan Cooperative Industrial Estate, Mathura Road, New Delhi 110044"
+    },
+    {
+        "gtin": "8901043001552",
+        "company_name": "Coca-Cola India Pvt. Ltd.",
+        "product_name": "Sprite Clear Lemon Beverage",
+        "fssai_number": "10012011000558",
+        "address": "Enkay Towers, Udyog Vihar Phase V, Gurgaon 122016"
+    },
+    {
+        "gtin": "8901113110253",
+        "company_name": "Gujarat Cooperative Milk Marketing Federation Ltd.",
+        "product_name": "Amul Taaza Toned Milk",
+        "fssai_number": "10012021000071",
+        "address": "Amul Dairy Road, Anand, Gujarat 388001"
+    }
+]
