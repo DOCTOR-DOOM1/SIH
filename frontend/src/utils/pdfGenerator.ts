@@ -2,7 +2,7 @@ import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { ScanRecord } from '../types/metrology';
 
-export function exportEnforcementPdf(record: ScanRecord) {
+export function exportEnforcementPdf(record: ScanRecord, isConsumer: boolean = false) {
   const doc = new jsPDF({
     orientation: 'portrait',
     unit: 'mm',
@@ -241,30 +241,37 @@ export function exportEnforcementPdf(record: ScanRecord) {
   }
 
   // Official Signature Block
-  doc.setDrawColor(180, 180, 180);
-  doc.setLineWidth(0.3);
+  if (!isConsumer) {
+    doc.setDrawColor(180, 180, 180);
+    doc.setLineWidth(0.3);
 
-  // Left: Officer Signature
-  doc.line(14, signatureY + 15, 75, signatureY + 15);
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8);
-  doc.setTextColor(40, 40, 40);
-  doc.text('Inspecting Officer Signature & Date', 14, signatureY + 19);
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7);
-  doc.setTextColor(100, 100, 100);
-  doc.text(`${record.officerName} [${record.officerBadge}]`, 14, signatureY + 23);
+    // Left: Officer Signature
+    doc.line(14, signatureY + 15, 75, signatureY + 15);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(40, 40, 40);
+    doc.text('Inspecting Officer Signature & Date', 14, signatureY + 19);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.setTextColor(100, 100, 100);
+    doc.text(`${record.officerName} [${record.officerBadge}]`, 14, signatureY + 23);
 
-  // Right: Zonal Office Seal
-  doc.line(pageWidth - 75, signatureY + 15, pageWidth - 14, signatureY + 15);
-  doc.setFont('helvetica', 'bold');
-  doc.setFontSize(8);
-  doc.setTextColor(40, 40, 40);
-  doc.text('Legal Metrology Zonal Seal / Verification Stamp', pageWidth - 75, signatureY + 19);
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(7);
-  doc.setTextColor(100, 100, 100);
-  doc.text('Department of Consumer Affairs, Govt. of India', pageWidth - 75, signatureY + 23);
+    // Right: Zonal Office Seal
+    doc.line(pageWidth - 75, signatureY + 15, pageWidth - 14, signatureY + 15);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(8);
+    doc.setTextColor(40, 40, 40);
+    doc.text('Legal Metrology Zonal Seal / Verification Stamp', pageWidth - 75, signatureY + 19);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(7);
+    doc.setTextColor(100, 100, 100);
+    doc.text('Department of Consumer Affairs, Govt. of India', pageWidth - 75, signatureY + 23);
+  } else {
+    doc.setFont('helvetica', 'italic');
+    doc.setFontSize(8);
+    doc.setTextColor(120, 120, 120);
+    doc.text('This is an automated consumer advisory report. No official signature required.', pageWidth / 2, signatureY + 19, { align: 'center' });
+  }
 
   // Footer bar
   doc.setFillColor(24, 24, 24);

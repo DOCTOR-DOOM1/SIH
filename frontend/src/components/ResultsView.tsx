@@ -16,15 +16,17 @@ import { exportEnforcementPdf } from '../utils/pdfGenerator';
 interface ResultsViewProps {
   record: ScanRecord;
   onNewScan: () => void;
-  onSaveToRepository: (record: ScanRecord) => void;
-  isSavedInRepo: boolean;
+  onSaveToRepository?: (record: ScanRecord) => void;
+  isSavedInRepo?: boolean;
+  isConsumer?: boolean;
 }
 
 export const ResultsView: React.FC<ResultsViewProps> = ({
   record,
   onNewScan,
   onSaveToRepository,
-  isSavedInRepo,
+  isSavedInRepo = false,
+  isConsumer = false,
 }) => {
   const [showRawOcr, setShowRawOcr] = useState<boolean>(false);
   const [copiedText, setCopiedText] = useState<boolean>(false);
@@ -103,17 +105,19 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            onClick={() => onSaveToRepository(record)}
-            disabled={isSavedInRepo}
-            className={`px-4 py-2 border rounded-xl text-xs font-bold transition-all uppercase tracking-widest ${
-              isSavedInRepo
-                ? 'border-zinc-800 text-zinc-500 cursor-default bg-transparent'
-                : 'border-zinc-800 hover:bg-zinc-800 text-zinc-300'
-            }`}
-          >
-            {isSavedInRepo ? 'Saved in Repo' : 'Save To Repo'}
-          </button>
+          {!isConsumer && onSaveToRepository && (
+            <button
+              onClick={() => onSaveToRepository(record)}
+              disabled={isSavedInRepo}
+              className={`px-4 py-2 border rounded-xl text-xs font-bold transition-all uppercase tracking-widest ${
+                isSavedInRepo
+                  ? 'border-zinc-800 text-zinc-500 cursor-default bg-transparent'
+                  : 'border-zinc-800 hover:bg-zinc-800 text-zinc-300'
+              }`}
+            >
+              {isSavedInRepo ? 'Saved in Repo' : 'Save To Repo'}
+            </button>
+          )}
 
           <button
             onClick={onNewScan}
@@ -123,7 +127,7 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
           </button>
 
           <button
-            onClick={() => exportEnforcementPdf(record)}
+            onClick={() => exportEnforcementPdf(record, isConsumer)}
             className="px-5 py-2 bg-amber-400 text-black rounded-xl text-xs font-bold hover:bg-amber-300 transition-all uppercase tracking-widest shadow-lg shadow-amber-400/10 flex items-center gap-1.5"
           >
             <FileDown size={14} />
@@ -391,7 +395,7 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
 
           <div className="bg-[#181818] border border-zinc-800 p-6 rounded-2xl space-y-4">
             <h4 className="text-sm font-bold text-white font-playfair">
-              Enforcement Metadata & Inspector Summary
+              {isConsumer ? 'Scan Metadata' : 'Enforcement Metadata & Inspector Summary'}
             </h4>
 
             <div className="space-y-3 text-xs text-zinc-300">
@@ -399,18 +403,24 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
                 <span className="text-zinc-500">Audit Reference</span>
                 <span className="font-mono text-amber-400 font-bold">{record.id}</span>
               </div>
-              <div className="flex justify-between py-1.5 border-b border-zinc-800">
-                <span className="text-zinc-500">Inspecting Officer</span>
-                <span className="font-semibold">{record.officerName}</span>
-              </div>
-              <div className="flex justify-between py-1.5 border-b border-zinc-800">
-                <span className="text-zinc-500">Badge ID</span>
-                <span className="font-mono text-amber-400">{record.officerBadge}</span>
-              </div>
-              <div className="flex justify-between py-1.5 border-b border-zinc-800">
-                <span className="text-zinc-500">Zonal Station</span>
-                <span>{record.station}</span>
-              </div>
+              
+              {!isConsumer && (
+                <>
+                  <div className="flex justify-between py-1.5 border-b border-zinc-800">
+                    <span className="text-zinc-500">Inspecting Officer</span>
+                    <span className="font-semibold">{record.officerName}</span>
+                  </div>
+                  <div className="flex justify-between py-1.5 border-b border-zinc-800">
+                    <span className="text-zinc-500">Badge ID</span>
+                    <span className="font-mono text-amber-400">{record.officerBadge}</span>
+                  </div>
+                  <div className="flex justify-between py-1.5 border-b border-zinc-800">
+                    <span className="text-zinc-500">Zonal Station</span>
+                    <span>{record.station}</span>
+                  </div>
+                </>
+              )}
+
               <div className="flex justify-between py-1.5 border-b border-zinc-800">
                 <span className="text-zinc-500">Origin Classification</span>
                 <span>{record.isImported ? 'Imported Commodity (Rule 6(1)(aa))' : 'Domestic Item'}</span>
@@ -425,11 +435,11 @@ export const ResultsView: React.FC<ResultsViewProps> = ({
 
             <div className="pt-3">
               <button
-                onClick={() => exportEnforcementPdf(record)}
+                onClick={() => exportEnforcementPdf(record, isConsumer)}
                 className="w-full flex items-center justify-center gap-2 rounded-xl bg-amber-400 px-4 py-3 text-xs font-bold text-black hover:bg-amber-300 transition-colors shadow-md shadow-amber-400/20 uppercase tracking-widest"
               >
                 <FileDown size={15} />
-                <span>Export Official Signed PDF</span>
+                <span>{isConsumer ? 'Export Verification PDF' : 'Export Official Signed PDF'}</span>
               </button>
             </div>
           </div>

@@ -21,6 +21,8 @@ import { ResultsView } from './components/ResultsView';
 import { RepositoryView } from './components/RepositoryView';
 import { RulesGuideModal } from './components/RulesGuideModal';
 import { AuthModal } from './components/AuthModal';
+import { LandingView } from './components/LandingView';
+import { ConsumerPortal } from './components/ConsumerPortal';
 import { LoginView } from './components/LoginView';
 import { ThemeToggle } from './components/ThemeToggle';
 import { exportEnforcementPdf } from './utils/pdfGenerator';
@@ -58,6 +60,7 @@ function generateInitialRecords(): ScanRecord[] {
 }
 
 export default function App() {
+  const [appMode, setAppMode] = useState<'landing' | 'consumer' | 'officer'>('landing');
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
     return localStorage.getItem('mapdrishti_auth') === 'true';
   });
@@ -205,6 +208,27 @@ export default function App() {
     }
   };
 
+  if (appMode === 'landing') {
+    return (
+      <LandingView 
+        onSelectRole={(role) => setAppMode(role)} 
+        isDark={isDark} 
+        onToggleTheme={toggleTheme} 
+      />
+    );
+  }
+
+  if (appMode === 'consumer') {
+    return (
+      <ConsumerPortal 
+        onBackToLanding={() => setAppMode('landing')}
+        isDark={isDark}
+        onToggleTheme={toggleTheme}
+      />
+    );
+  }
+
+  // From here down, it's Officer Mode
   if (!isAuthenticated) {
     return <LoginView onLogin={handleLogin} isDark={isDark} onToggleTheme={toggleTheme} />;
   }
