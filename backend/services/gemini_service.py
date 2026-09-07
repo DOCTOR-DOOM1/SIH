@@ -47,19 +47,28 @@ def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
         6. If all are COMPLIANT (and phase 1 passed), `overall_status` is "COMPLIANT". If any check fails, "NON_COMPLIANT".
         """
         
-        response = client.models.generate_content(
-            model='gemini-3.6-flash',
-            contents=[
-                types.Part.from_bytes(data=image_bytes, mime_type='image/jpeg'),
-                prompt
-            ],
-            config=types.GenerateContentConfig(
-                response_mime_type="application/json",
-                response_schema=GeminiAnalysisResult,
-            ),
-        )
-        
-        return json.loads(response.text)
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                response = client.models.generate_content(
+                    model='gemini-2.0-flash',
+                    contents=[
+                        types.Part.from_bytes(data=image_bytes, mime_type='image/jpeg'),
+                        prompt
+                    ],
+                    config=types.GenerateContentConfig(
+                        response_mime_type="application/json",
+                        response_schema=GeminiAnalysisResult,
+                    ),
+                )
+                return json.loads(response.text)
+            except Exception as e:
+                import time
+                if "503" in str(e) and attempt < max_retries - 1:
+                    print(f"Gemini API 503 Error. Retrying in {2 ** attempt} seconds...")
+                    time.sleep(2 ** attempt)
+                else:
+                    raise e
     except Exception as e:
         print(f"Gemini API Error: {e}")
         return get_mock_response("")
