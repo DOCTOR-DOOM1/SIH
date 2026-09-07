@@ -1,10 +1,10 @@
 [
     {
         "gtin": "8901491503037",
-        "company_name": "PepsiCo India Holdings Pvt. Ltd.",
-        "product_name": "Lays Classic Salted - 50g",
-        "fssai_number": "10014064000435",
-        "address": "Level 3, DLF Centre, Sansad Marg, New Delhi 110001"
+        "company_name": "Lay's, PepsiCo",
+        "product_name": "American Style Cream & Onion 10rs",
+        "fssai_number": "10088885258093",
+        "address": ""
     },
     {
         "gtin": "8901058862002",
@@ -64,10 +64,10 @@
     },
     {
         "gtin": "8901764012273",
-        "company_name": "ITC Limited",
-        "product_name": "Aashirvaad Whole Wheat Atta",
-        "fssai_number": "10012031000312",
-        "address": "Virginia House, 37 J.L. Nehru Road, Kolkata 700071"
+        "company_name": "Coca-Cola",
+        "product_name": "Coca Cola Coke Brand 750ml",
+        "fssai_number": "10056090417581",
+        "address": ""
     },
     {
         "gtin": "8901015077478",
@@ -113,10 +113,10 @@
     },
     {
         "gtin": "8904004400021",
-        "company_name": "Patanjali Ayurved Ltd.",
-        "product_name": "Patanjali Dant Kanti Toothpaste",
-        "fssai_number": "10014012000266",
-        "address": "Patanjali Food & Herbal Park, Laksar Road, Padartha, Haridwar 249404"
+        "company_name": "Haldiram's",
+        "product_name": "bhujia sev",
+        "fssai_number": "100-7957991406",
+        "address": ""
     },
     {
         "gtin": "8901138012627",
@@ -138,5 +138,1384 @@
         "product_name": "Amul Taaza Toned Milk",
         "fssai_number": "10012021000071",
         "address": "Amul Dairy Road, Anand, Gujarat 388001"
+    },
+    {
+        "gtin": "8901719117183",
+        "company_name": "Parle, Parle platina",
+        "product_name": "Hide & Seek",
+        "fssai_number": "100-4803757803",
+        "address": ""
+    },
+    {
+        "gtin": "3948764032301",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "10087822169833",
+        "address": "India"
+    },
+    {
+        "gtin": "6291100213146",
+        "company_name": "Unknown Brand",
+        "product_name": "UAE by",
+        "fssai_number": "10010277794209",
+        "address": "India"
+    },
+    {
+        "gtin": "8904004403732",
+        "company_name": "Haldiram",
+        "product_name": "Haldiram moong dal",
+        "fssai_number": "10081496196419",
+        "address": ""
+    },
+    {
+        "gtin": "09141209",
+        "company_name": "Cadbury",
+        "product_name": "Bourn Vita 500Gram Pauch",
+        "fssai_number": "10089240760841",
+        "address": ""
+    },
+    {
+        "gtin": "8901262010320",
+        "company_name": "AMUL",
+        "product_name": "Amul Butter",
+        "fssai_number": "10060127279234",
+        "address": ""
+    },
+    {
+        "gtin": "8901491101837",
+        "company_name": "Lay's",
+        "product_name": "Lays Classics Salted 20rs",
+        "fssai_number": "100-4451744216",
+        "address": ""
+    },
+    {
+        "gtin": "0020357122682",
+        "company_name": "Mestla",
+        "product_name": "Milk",
+        "fssai_number": "100-3396315644",
+        "address": ""
+    },
+    {
+        "gtin": "8901058000306",
+        "company_name": "Nestl\u00e9",
+        "product_name": "Maggi noodles masala",
+        "fssai_number": "10049894781131",
+        "address": ""
+    },
+    {
+        "gtin": "8906010501228",
+        "company_name": "Balaji Wafers",
+        "product_name": "Scoopitos Masala Flavour",
+        "fssai_number": "10027837261665",
+        "address": ""
+    },
+    {
+        "gtin": "8901030902932",
+        "company_name": "Kissan",
+        "product_name": "Fresh Tomato Ketchup",
+        "fssai_number": "10040451206031",
+        "address": ""
+    },
+    {
+        "gtin": "8901719135217",
+        "company_name": "Parle",
+        "product_name": "Krackjack",
+        "fssai_number": "10068119811605",
+        "address": ""
+    },
+    {
+        "gtin": "8901063093287",
+        "company_name": "Britannia",
+        "product_name": "Good Day Cashew Cookies",
+        "fssai_number": "10055194339348",
+        "address": "India"
+    },
+    {
+        "gtin": "8901491103794",
+        "company_name": "Pepsico, Quaker",
+        "product_name": "Oats",
+        "fssai_number": "100-2014653583",
+        "address": "India"
+    },
+    {
+        "gtin": "8901499010513",
+        "company_name": "Kellogg's",
+        "product_name": "Muesli Fruit, Nut & Seeds",
+        "fssai_number": "100-7930472374",
+        "address": "India"
+    },
+    {
+        "gtin": "8904004402261",
+        "company_name": "Haldiram",
+        "product_name": "PHALHARI CHIWDA",
+        "fssai_number": "10030095123033",
+        "address": "India"
+    },
+    {
+        "gtin": "8901030922787",
+        "company_name": "Kissan",
+        "product_name": "Mixed Fruit Jam",
+        "fssai_number": "100-3806525768",
+        "address": ""
+    },
+    {
+        "gtin": "8904327600924",
+        "company_name": "Myfitness",
+        "product_name": "Myfitness Peanut Butter",
+        "fssai_number": "100-6672456809",
+        "address": ""
+    },
+    {
+        "gtin": "3948764032905",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-6084240928",
+        "address": "India"
+    },
+    {
+        "gtin": "8903754000062",
+        "company_name": "Tata",
+        "product_name": "Tata water 1ltr",
+        "fssai_number": "100-2941566872",
+        "address": "India"
+    },
+    {
+        "gtin": "8901491366229",
+        "company_name": "Kurkure",
+        "product_name": "Kurkure Solid Masti Masala Twisteez Crisps",
+        "fssai_number": "10048992755628",
+        "address": "India"
+    },
+    {
+        "gtin": "8909106018327",
+        "company_name": "Boost, Unilever",
+        "product_name": "Boost",
+        "fssai_number": "10061654217117",
+        "address": ""
+    },
+    {
+        "gtin": "0846203004878",
+        "company_name": "Chitale",
+        "product_name": "Bakarwadi",
+        "fssai_number": "100-6803821725",
+        "address": "India"
+    },
+    {
+        "gtin": "8901063092839",
+        "company_name": "Unknown Brand",
+        "product_name": "Good day 5rs",
+        "fssai_number": "100-6669111263",
+        "address": "India"
+    },
+    {
+        "gtin": "8901063014411",
+        "company_name": "Britannia",
+        "product_name": "Vita Marie Gold",
+        "fssai_number": "10028648478397",
+        "address": ""
+    },
+    {
+        "gtin": "8901491503051",
+        "company_name": "Lay's",
+        "product_name": "West Indies' Hot 'n' Sweet Chilli flavor",
+        "fssai_number": "10037039747309",
+        "address": "India"
+    },
+    {
+        "gtin": "89002940",
+        "company_name": "Parachute",
+        "product_name": "Coconut oil",
+        "fssai_number": "10068274334114",
+        "address": ""
+    },
+    {
+        "gtin": "8901207025365",
+        "company_name": "Dabur",
+        "product_name": "Honey",
+        "fssai_number": "100-6494991634",
+        "address": "India"
+    },
+    {
+        "gtin": "8902080504060",
+        "company_name": "Aquafina is sold by PepsiCo, PepsiCo",
+        "product_name": "Packaged Drinking Water",
+        "fssai_number": "10069216920810",
+        "address": "India"
+    },
+    {
+        "gtin": "8902579001360",
+        "company_name": "Frooti",
+        "product_name": "Frooti 125ml",
+        "fssai_number": "100-7762093197",
+        "address": ""
+    },
+    {
+        "gtin": "8902579002039",
+        "company_name": "parle agro appy fizz",
+        "product_name": "appy fizz",
+        "fssai_number": "100-4926880615",
+        "address": ""
+    },
+    {
+        "gtin": "4897036693469",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-3563578573",
+        "address": "India"
+    },
+    {
+        "gtin": "8901491101813",
+        "company_name": "Lay's, PepsiCo",
+        "product_name": "Lays american cream onion",
+        "fssai_number": "10037516341040",
+        "address": ""
+    },
+    {
+        "gtin": "9300633929169",
+        "company_name": "Woolworths",
+        "product_name": "Chunk Light Tuna",
+        "fssai_number": "100-7421509199",
+        "address": ""
+    },
+    {
+        "gtin": "8901764012914",
+        "company_name": "The Coca-Cola Company",
+        "product_name": "Coca-Cola",
+        "fssai_number": "10084740327248",
+        "address": "India, ameenpur village, patancheru"
+    },
+    {
+        "gtin": "8901058903164",
+        "company_name": "Nestl\u00e9",
+        "product_name": "KitKat win gold",
+        "fssai_number": "10042032007124",
+        "address": "India"
+    },
+    {
+        "gtin": "8901725005856",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "10020118808769",
+        "address": "India"
+    },
+    {
+        "gtin": "8901725015275",
+        "company_name": "Sunfeast, Sunfeast is sold by ITC Limited",
+        "product_name": "Dark Fantasy Choco fills",
+        "fssai_number": "100-2842279014",
+        "address": ""
+    },
+    {
+        "gtin": "8901725118921",
+        "company_name": "bingo",
+        "product_name": "tedha medha",
+        "fssai_number": "100-1088196230",
+        "address": "India"
+    },
+    {
+        "gtin": "8904004402612",
+        "company_name": "Haldiram's",
+        "product_name": "Unknown Product",
+        "fssai_number": "10015480251862",
+        "address": "India"
+    },
+    {
+        "gtin": "8902579203016",
+        "company_name": "Bailey, Parle Agro",
+        "product_name": "Packaged Drinking Water",
+        "fssai_number": "10034934978623",
+        "address": ""
+    },
+    {
+        "gtin": "8906010500870",
+        "company_name": "balaji",
+        "product_name": "BALAJI CREAM ONION",
+        "fssai_number": "10057021809495",
+        "address": "India"
+    },
+    {
+        "gtin": "3948764082405",
+        "company_name": "Unknown Brand",
+        "product_name": "Kinley 1ltr",
+        "fssai_number": "10065083456287",
+        "address": "India"
+    },
+    {
+        "gtin": "3948764092206",
+        "company_name": "The Coca-Cola Company",
+        "product_name": "Maaza",
+        "fssai_number": "100-1449096441",
+        "address": "India"
+    },
+    {
+        "gtin": "7622202324321",
+        "company_name": "Dairy Milk",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-6216288664",
+        "address": "India"
+    },
+    {
+        "gtin": "8901719135088",
+        "company_name": "Parle",
+        "product_name": "Monaco",
+        "fssai_number": "10026416906136",
+        "address": "India"
+    },
+    {
+        "gtin": "8410076601445",
+        "company_name": "Nature Valley",
+        "product_name": "Nature valley crunchy",
+        "fssai_number": "10080066307963",
+        "address": "Allemagne"
+    },
+    {
+        "gtin": "8901088068734",
+        "company_name": "Saffola",
+        "product_name": "Saffola Masala Oats - Classic Masala",
+        "fssai_number": "100-4145428804",
+        "address": ""
+    },
+    {
+        "gtin": "8906010502973",
+        "company_name": "Unknown Brand",
+        "product_name": "Papdi gathiya",
+        "fssai_number": "100-8827136515",
+        "address": "India"
+    },
+    {
+        "gtin": "8901123001214",
+        "company_name": "Lotte",
+        "product_name": "Lotte Choco Pie",
+        "fssai_number": "10076001959253",
+        "address": "India"
+    },
+    {
+        "gtin": "8901063019188",
+        "company_name": "Brotannica",
+        "product_name": "Little Hearts",
+        "fssai_number": "10057028053115",
+        "address": "India"
+    },
+    {
+        "gtin": "8906010500047",
+        "company_name": "Balaji",
+        "product_name": "masala masti",
+        "fssai_number": "10032646512815",
+        "address": "India"
+    },
+    {
+        "gtin": "8901719135729",
+        "company_name": "Parle G",
+        "product_name": "Biscuit",
+        "fssai_number": "10033904492160",
+        "address": "India"
+    },
+    {
+        "gtin": "8906017290033",
+        "company_name": "BISLERI",
+        "product_name": "Bisleri",
+        "fssai_number": "10033564982202",
+        "address": "Inde"
+    },
+    {
+        "gtin": "3948764012914",
+        "company_name": "Cocacola",
+        "product_name": "Cocacola zero",
+        "fssai_number": "100-7443899004",
+        "address": ""
+    },
+    {
+        "gtin": "8901764175091",
+        "company_name": "Maaza",
+        "product_name": "Fruit drink",
+        "fssai_number": "100-3982440338",
+        "address": "India"
+    },
+    {
+        "gtin": "8906017290064",
+        "company_name": "Bisleri",
+        "product_name": "Packaged Drinking Water",
+        "fssai_number": "100-2621100217",
+        "address": "India"
+    },
+    {
+        "gtin": "4897036691427",
+        "company_name": "Monster, Monster Energy",
+        "product_name": "Monster Energy Drink 350ml",
+        "fssai_number": "100-2123690280",
+        "address": ""
+    },
+    {
+        "gtin": "8901764042270",
+        "company_name": "Coca Cola Company",
+        "product_name": "Thumbs Up 750ml",
+        "fssai_number": "10082687406980",
+        "address": "India"
+    },
+    {
+        "gtin": "8901063014299",
+        "company_name": "Britannia Industries Ltd.",
+        "product_name": "Britannia Vita Marie Gold Biscuits",
+        "fssai_number": "100-5228661434",
+        "address": ""
+    },
+    {
+        "gtin": "89009758",
+        "company_name": "Nescafe",
+        "product_name": "NESCAFE classic",
+        "fssai_number": "10089693212417",
+        "address": ""
+    },
+    {
+        "gtin": "8901063139213",
+        "company_name": "Britannia",
+        "product_name": "Brit bourbon 150g (sys)",
+        "fssai_number": "100-7610366323",
+        "address": "India"
+    },
+    {
+        "gtin": "8901063019201",
+        "company_name": "Britannia",
+        "product_name": "8901063019201",
+        "fssai_number": "10053136227981",
+        "address": "India"
+    },
+    {
+        "gtin": "8908003872315",
+        "company_name": "Unknown Brand",
+        "product_name": "Poha",
+        "fssai_number": "10053502256364",
+        "address": "India"
+    },
+    {
+        "gtin": "8901719135255",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-1339068582",
+        "address": "India"
+    },
+    {
+        "gtin": "8901088000451",
+        "company_name": "Parachute",
+        "product_name": "Parachnute 100% Pure Coconut Oil",
+        "fssai_number": "100-8977780439",
+        "address": ""
+    },
+    {
+        "gtin": "8901491503020",
+        "company_name": "Lay's",
+        "product_name": "Lays India's Magic Masala",
+        "fssai_number": "10078876296106",
+        "address": ""
+    },
+    {
+        "gtin": "8904004403725",
+        "company_name": "Haldiram's",
+        "product_name": "Moong Dal",
+        "fssai_number": "10067565077650",
+        "address": ""
+    },
+    {
+        "gtin": "8901262070546",
+        "company_name": "Amul",
+        "product_name": "Chocominis",
+        "fssai_number": "10069861558125",
+        "address": "India"
+    },
+    {
+        "gtin": "8904043551548",
+        "company_name": "Modern",
+        "product_name": "Modern 100% Whole Wheat Bread",
+        "fssai_number": "100-1594930130",
+        "address": ""
+    },
+    {
+        "gtin": "8901764032271",
+        "company_name": "coca cola",
+        "product_name": "Sprite 750ml",
+        "fssai_number": "100-5002483621",
+        "address": ""
+    },
+    {
+        "gtin": "8906001023043",
+        "company_name": "Paragon Partners",
+        "product_name": "Govardhan pure cow ghee 500ml",
+        "fssai_number": "100-2354946548",
+        "address": "India"
+    },
+    {
+        "gtin": "8901058023787",
+        "company_name": "Maggi",
+        "product_name": "2-minute noodles masala taste",
+        "fssai_number": "10084756648272",
+        "address": ""
+    },
+    {
+        "gtin": "8904004400779",
+        "company_name": "Haldiram's",
+        "product_name": "Haldiram's Aloo Bhujia",
+        "fssai_number": "100-3618628874",
+        "address": ""
+    },
+    {
+        "gtin": "8903553601613",
+        "company_name": "RAM BANDHU",
+        "product_name": "Mango Pickle",
+        "fssai_number": "100-7677068223",
+        "address": ""
+    },
+    {
+        "gtin": "8904004402216",
+        "company_name": "Haldiram",
+        "product_name": "Haldiram Phulhari",
+        "fssai_number": "10047790867038",
+        "address": ""
+    },
+    {
+        "gtin": "8902579103057",
+        "company_name": "Parle",
+        "product_name": "Frooti",
+        "fssai_number": "10026382677915",
+        "address": ""
+    },
+    {
+        "gtin": "8901063016873",
+        "company_name": "Britannia",
+        "product_name": "50-50",
+        "fssai_number": "100-3582466259",
+        "address": "India"
+    },
+    {
+        "gtin": "8901063029279",
+        "company_name": "Britannia",
+        "product_name": "Jimjam",
+        "fssai_number": "100-3073514601",
+        "address": ""
+    },
+    {
+        "gtin": "8901764092800",
+        "company_name": "Coca-Cola Company",
+        "product_name": "Maaza",
+        "fssai_number": "100-4912934828",
+        "address": "India"
+    },
+    {
+        "gtin": "7622202237393",
+        "company_name": "Unknown Brand",
+        "product_name": "Bournvita 70g",
+        "fssai_number": "10021525978899",
+        "address": "India"
+    },
+    {
+        "gtin": "8906010504625",
+        "company_name": "Gippi",
+        "product_name": "8906010504625",
+        "fssai_number": "100-7171073648",
+        "address": ""
+    },
+    {
+        "gtin": "5000171010025",
+        "company_name": "John West",
+        "product_name": "Wild Pacific Red Salmon",
+        "fssai_number": "10062888115100",
+        "address": ""
+    },
+    {
+        "gtin": "80768258",
+        "company_name": "Ferrero, Kinder",
+        "product_name": "\u5065\u9054\u5947\u8da3\u86cb(\u5973\u5b69\u7248)",
+        "fssai_number": "10032179264974",
+        "address": ""
+    },
+    {
+        "gtin": "8901725007102",
+        "company_name": "Itc",
+        "product_name": "Bingo",
+        "fssai_number": "100-7616099111",
+        "address": ""
+    },
+    {
+        "gtin": "8901595873258",
+        "company_name": "Smith and Jones",
+        "product_name": "Smith & Jones Ginger Garlic Paste",
+        "fssai_number": "100-4045950609",
+        "address": "India"
+    },
+    {
+        "gtin": "8901719131219",
+        "company_name": "Parle",
+        "product_name": "Parle g 800 g",
+        "fssai_number": "10086948003721",
+        "address": "India"
+    },
+    {
+        "gtin": "8902080003075",
+        "company_name": "7up",
+        "product_name": "nimbooz",
+        "fssai_number": "100-4840605857",
+        "address": "India"
+    },
+    {
+        "gtin": "8904083303077",
+        "company_name": "Milky Mist",
+        "product_name": "Farm Fresh Sahi Plain Yoghurt",
+        "fssai_number": "10085993004635",
+        "address": "India"
+    },
+    {
+        "gtin": "8904004401554",
+        "company_name": "Haldiram's",
+        "product_name": "Masala Sev Murmura",
+        "fssai_number": "10019260142187",
+        "address": ""
+    },
+    {
+        "gtin": "8901063142664",
+        "company_name": "Britannia",
+        "product_name": "britannia",
+        "fssai_number": "10018715481620",
+        "address": ""
+    },
+    {
+        "gtin": "8902346034867",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "10019827740108",
+        "address": "India"
+    },
+    {
+        "gtin": "8906010502041",
+        "company_name": "Balaji Wafers",
+        "product_name": "",
+        "fssai_number": "10087983408028",
+        "address": ""
+    },
+    {
+        "gtin": "8904004400694",
+        "company_name": "Haldiram's",
+        "product_name": "Aloo Bhujia",
+        "fssai_number": "100-8556393108",
+        "address": "India"
+    },
+    {
+        "gtin": "8904071704527",
+        "company_name": "Unknown Brand",
+        "product_name": "Plantain Chips (Yellow Banana Chips)",
+        "fssai_number": "100-8243377091",
+        "address": "India"
+    },
+    {
+        "gtin": "8901491504782",
+        "company_name": "Lay's",
+        "product_name": "West Indies hotn sweet chilli",
+        "fssai_number": "100-8169916394",
+        "address": "India"
+    },
+    {
+        "gtin": "8906010500276",
+        "company_name": "Balaji Wafers",
+        "product_name": "Balaji Wafers Shing Bhujia",
+        "fssai_number": "100-5402224769",
+        "address": ""
+    },
+    {
+        "gtin": "3948764092305",
+        "company_name": "Unknown Brand",
+        "product_name": "3948764092305",
+        "fssai_number": "100-7905397372",
+        "address": "India"
+    },
+    {
+        "gtin": "8908006989355",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-5423569270",
+        "address": "India"
+    },
+    {
+        "gtin": "8901063155534",
+        "company_name": "Britannia, Tiger",
+        "product_name": "Krunch ChocoChips",
+        "fssai_number": "100-5398116661",
+        "address": ""
+    },
+    {
+        "gtin": "8901764312601",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-4373970331",
+        "address": "India"
+    },
+    {
+        "gtin": "8904004401561",
+        "company_name": "Haldiram's",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-1297676903",
+        "address": "India"
+    },
+    {
+        "gtin": "8901719135477",
+        "company_name": "Parle",
+        "product_name": "Parle G gold",
+        "fssai_number": "100-4820908459",
+        "address": ""
+    },
+    {
+        "gtin": "8901764972041",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-1224924596",
+        "address": "India"
+    },
+    {
+        "gtin": "7622202344213",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-5049749078",
+        "address": "India"
+    },
+    {
+        "gtin": "8904004401134",
+        "company_name": "Haldiram",
+        "product_name": "Haldiram's Khatta Sweet and Salty mix",
+        "fssai_number": "10018694045468",
+        "address": "India"
+    },
+    {
+        "gtin": "8906001023036",
+        "company_name": "Gowardhan",
+        "product_name": "Pure Cow Ghee",
+        "fssai_number": "100-3828816243",
+        "address": ""
+    },
+    {
+        "gtin": "8901491367219",
+        "company_name": "kurkure",
+        "product_name": "kurkure",
+        "fssai_number": "100-6119641980",
+        "address": "India"
+    },
+    {
+        "gtin": "8901764011252",
+        "company_name": "Coca-Cola",
+        "product_name": "Coca cola Original Taste 300ml can",
+        "fssai_number": "100-2459894418",
+        "address": "India"
+    },
+    {
+        "gtin": "19010588",
+        "company_name": "Maggi, Nestl\u00e9",
+        "product_name": "Chicken noodles",
+        "fssai_number": "100-2920584018",
+        "address": ""
+    },
+    {
+        "gtin": "8901491365666",
+        "company_name": "Kurkure",
+        "product_name": "Kurkure Puffcorn",
+        "fssai_number": "100-8784023013",
+        "address": "India"
+    },
+    {
+        "gtin": "8901491981538",
+        "company_name": "Lay's",
+        "product_name": "Lay\u2019s Chile Limon",
+        "fssai_number": "10051140901204",
+        "address": "India"
+    },
+    {
+        "gtin": "8902080204021",
+        "company_name": "Mirinda, PepsiCo Inc.",
+        "product_name": "Mirinda",
+        "fssai_number": "100-4734662153",
+        "address": ""
+    },
+    {
+        "gtin": "8906069403412",
+        "company_name": "VEEBA",
+        "product_name": "Chef's Special Tomato Ketchup",
+        "fssai_number": "100-8503881486",
+        "address": ""
+    },
+    {
+        "gtin": "8908005144014",
+        "company_name": "Yoga Bar",
+        "product_name": "Multigain energy bar",
+        "fssai_number": "100-9192156542",
+        "address": "India"
+    },
+    {
+        "gtin": "3948764022913",
+        "company_name": "Everest Turmeric powder tikha lal",
+        "product_name": "fanta coca cola",
+        "fssai_number": "100-1448621278",
+        "address": "India"
+    },
+    {
+        "gtin": "8901063338593",
+        "company_name": "Britannia",
+        "product_name": "100% Whole Wheat Brown Bread",
+        "fssai_number": "100-3895446433",
+        "address": "India"
+    },
+    {
+        "gtin": "8908000861107",
+        "company_name": "gopal",
+        "product_name": "GOPAL",
+        "fssai_number": "100-7182107585",
+        "address": "India"
+    },
+    {
+        "gtin": "8901764092152",
+        "company_name": "HINDUSTAN COCO-COLA BEVERAGES PVT.LTD",
+        "product_name": "Maaza Original 1.75ltr",
+        "fssai_number": "10030926371979",
+        "address": "India"
+    },
+    {
+        "gtin": "8901030953217",
+        "company_name": "Kissan",
+        "product_name": "Kissan Sweet & Spicy Sauce",
+        "fssai_number": "10036873676443",
+        "address": "India"
+    },
+    {
+        "gtin": "8909081001123",
+        "company_name": "Sunfest",
+        "product_name": "Bounce Chocho",
+        "fssai_number": "10015325518962",
+        "address": "India"
+    },
+    {
+        "gtin": "8906053810264",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-2144768082",
+        "address": "India"
+    },
+    {
+        "gtin": "8901030980053",
+        "company_name": "Kissan",
+        "product_name": "Peanut Butter Crunchy",
+        "fssai_number": "100-9063444463",
+        "address": ""
+    },
+    {
+        "gtin": "8901719129179",
+        "company_name": "Parle",
+        "product_name": "PARLE COCONUT",
+        "fssai_number": "10028819304003",
+        "address": "India"
+    },
+    {
+        "gtin": "8901725018016",
+        "company_name": "Sunfeast",
+        "product_name": "Yippee noodles (snack pack)",
+        "fssai_number": "10013410182136",
+        "address": "India"
+    },
+    {
+        "gtin": "8901719126468",
+        "company_name": "Parle",
+        "product_name": "parle 20-20",
+        "fssai_number": "10050953838541",
+        "address": "India"
+    },
+    {
+        "gtin": "8906002006601",
+        "company_name": "Dr. Oetker",
+        "product_name": "8906002006601",
+        "fssai_number": "10017682865745",
+        "address": "India"
+    },
+    {
+        "gtin": "8906004560262",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "10084446046829",
+        "address": "India"
+    },
+    {
+        "gtin": "8904071700031",
+        "company_name": "Chheda's",
+        "product_name": "Masala Banana Chips",
+        "fssai_number": "10053745702004",
+        "address": "India"
+    },
+    {
+        "gtin": "8906010502300",
+        "company_name": "",
+        "product_name": "balaji wafers flamin hot",
+        "fssai_number": "10024310873826",
+        "address": ""
+    },
+    {
+        "gtin": "8901725123123",
+        "company_name": "Aashirvaad",
+        "product_name": "iodized salt",
+        "fssai_number": "100-6785847060",
+        "address": ""
+    },
+    {
+        "gtin": "8904004400083",
+        "company_name": "Haldiram's",
+        "product_name": "Haldiram's Bhujia sev",
+        "fssai_number": "100-8188460096",
+        "address": ""
+    },
+    {
+        "gtin": "8901030779282",
+        "company_name": "Lipton",
+        "product_name": "Green tea honey lemon 25 Tea Bags",
+        "fssai_number": "100-5761536036",
+        "address": ""
+    },
+    {
+        "gtin": "8886467122439",
+        "company_name": "Pringles",
+        "product_name": "Pringles Desi Masala Tadka Flavour",
+        "fssai_number": "100-1120944764",
+        "address": "malaysia"
+    },
+    {
+        "gtin": "8904071700192",
+        "company_name": "",
+        "product_name": "Golden potato chips",
+        "fssai_number": "100-7226723103",
+        "address": ""
+    },
+    {
+        "gtin": "8904090906520",
+        "company_name": "Rajam snacks",
+        "product_name": "Garlic mixture",
+        "fssai_number": "100-8296083290",
+        "address": ""
+    },
+    {
+        "gtin": "8901595851218",
+        "company_name": "Ching's Secret",
+        "product_name": "Veg Hakka Noodles",
+        "fssai_number": "10021201286129",
+        "address": "India"
+    },
+    {
+        "gtin": "8901262174114",
+        "company_name": "Amul",
+        "product_name": "King Alphonso Gold Ice Cream",
+        "fssai_number": "10073530839362",
+        "address": "India"
+    },
+    {
+        "gtin": "8901725104641",
+        "company_name": "Sunfeast",
+        "product_name": "Sunfeast moms magic cashew almond",
+        "fssai_number": "10017436874883",
+        "address": "India"
+    },
+    {
+        "gtin": "8902579001438",
+        "company_name": "Appy",
+        "product_name": "Appy Fizz",
+        "fssai_number": "10038729380412",
+        "address": "India"
+    },
+    {
+        "gtin": "8901117250000",
+        "company_name": "cipla health",
+        "product_name": "prolyte ors Orange flavour",
+        "fssai_number": "10049545561034",
+        "address": ""
+    },
+    {
+        "gtin": "8901088136945",
+        "company_name": "Parachute",
+        "product_name": "100% Pure Coconut Oil",
+        "fssai_number": "10086591923691",
+        "address": "India"
+    },
+    {
+        "gtin": "8908010900070",
+        "company_name": "Pintola",
+        "product_name": "Pintola all natural peanut butter (crunchy)",
+        "fssai_number": "10045293009258",
+        "address": ""
+    },
+    {
+        "gtin": "8906010501822",
+        "company_name": "Balaji",
+        "product_name": "GIPPI",
+        "fssai_number": "100-8769458797",
+        "address": "India"
+    },
+    {
+        "gtin": "3948764052910",
+        "company_name": "Unknown Brand",
+        "product_name": "Limca",
+        "fssai_number": "100-7779609980",
+        "address": "India"
+    },
+    {
+        "gtin": "8906032018919",
+        "company_name": "Nutrela",
+        "product_name": "Nutrela Soya mini chunks",
+        "fssai_number": "en:FSSAI Lic. No. - 10012026000040",
+        "address": "India"
+    },
+    {
+        "gtin": "8996001312476",
+        "company_name": "Mayora",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-5972539212",
+        "address": "India"
+    },
+    {
+        "gtin": "8901030919305",
+        "company_name": "Knorr",
+        "product_name": "pizza & pasta sauce",
+        "fssai_number": "10068130072150",
+        "address": "India"
+    },
+    {
+        "gtin": "8901725005986",
+        "company_name": "Sunfeast, Yippee!",
+        "product_name": "Sunfeast Yippee! masala magic",
+        "fssai_number": "100-4680363528",
+        "address": ""
+    },
+    {
+        "gtin": "8906032018810",
+        "company_name": "Patanjali",
+        "product_name": "Patanjali Doodh biscuits",
+        "fssai_number": "100-4150533148",
+        "address": ""
+    },
+    {
+        "gtin": "8904004404661",
+        "company_name": "Haldiram's",
+        "product_name": "salted peanuts",
+        "fssai_number": "100-3002396162",
+        "address": ""
+    },
+    {
+        "gtin": "8906010500511",
+        "company_name": "Balaji",
+        "product_name": "Chataka Pataka",
+        "fssai_number": "100-1013030806",
+        "address": "India"
+    },
+    {
+        "gtin": "8901725015886",
+        "company_name": "Sunfeast",
+        "product_name": "Dark Fantasy Choco Fills",
+        "fssai_number": "10044260355860",
+        "address": "India"
+    },
+    {
+        "gtin": "8901764012907",
+        "company_name": "Coca-Cola",
+        "product_name": "8901764012907",
+        "fssai_number": "10053632336413",
+        "address": "India"
+    },
+    {
+        "gtin": "3948262200196",
+        "company_name": "Unknown Brand",
+        "product_name": "amul butter masti 15",
+        "fssai_number": "100-4096241878",
+        "address": "India"
+    },
+    {
+        "gtin": "8901719135156",
+        "company_name": "parle",
+        "product_name": "PARLE MONACO",
+        "fssai_number": "10021786588758",
+        "address": "India"
+    },
+    {
+        "gtin": "7622202324260",
+        "company_name": "",
+        "product_name": "Dairy Milk Chocolate",
+        "fssai_number": "10022154315466",
+        "address": ""
+    },
+    {
+        "gtin": "8906080604690",
+        "company_name": "Paper Boat",
+        "product_name": "Swing Coconut Water",
+        "fssai_number": "10055296931488",
+        "address": ""
+    },
+    {
+        "gtin": "8901030735110",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-5193604020",
+        "address": "India"
+    },
+    {
+        "gtin": "8901058851298",
+        "company_name": "Maggi, Nestl\u00e9",
+        "product_name": "Maggi 2-minutes Noodles",
+        "fssai_number": "10020766073313",
+        "address": "Karnataka"
+    },
+    {
+        "gtin": "8902080104055",
+        "company_name": "The Coca-Cola Company",
+        "product_name": "Pepsi Drink 750ml",
+        "fssai_number": "10065163952601",
+        "address": "India"
+    },
+    {
+        "gtin": "8906010501419",
+        "company_name": "balaji",
+        "product_name": "poprings",
+        "fssai_number": "10076209475750",
+        "address": ""
+    },
+    {
+        "gtin": "8906006721821",
+        "company_name": "LION",
+        "product_name": "lion kimjo Dates",
+        "fssai_number": "10023985987166",
+        "address": "tamilnadu"
+    },
+    {
+        "gtin": "0786162002969",
+        "company_name": "vitamin water",
+        "product_name": "acai blueberry pomegranate nutrient enhanced water beverage",
+        "fssai_number": "10084997063479",
+        "address": ""
+    },
+    {
+        "gtin": "8904004400588",
+        "company_name": "Haldiram",
+        "product_name": "Haldiram's Lite Chiwda",
+        "fssai_number": "10023743446502",
+        "address": "Nagpur"
+    },
+    {
+        "gtin": "8906010500535",
+        "company_name": "Balaji",
+        "product_name": "Balaji Wafers Chaat Chaska",
+        "fssai_number": "100-5755164423",
+        "address": ""
+    },
+    {
+        "gtin": "8901491702188",
+        "company_name": "Quaker",
+        "product_name": "Oats",
+        "fssai_number": "100-7649232716",
+        "address": "India"
+    },
+    {
+        "gtin": "8906002000494",
+        "company_name": "Dr. Oetker, Funfoods",
+        "product_name": "Dr Oetker Funfoods Veg Mayonnaise",
+        "fssai_number": "10017888070567",
+        "address": ""
+    },
+    {
+        "gtin": "8901491435109",
+        "company_name": "Uncle Chipps",
+        "product_name": "Potato chips (Spicy Treat flavour)20rs",
+        "fssai_number": "10053423007354",
+        "address": "India"
+    },
+    {
+        "gtin": "8901512540201",
+        "company_name": "ACT II",
+        "product_name": "ACT TT GOlDEN SIZZLE",
+        "fssai_number": "100-2391577965",
+        "address": "India"
+    },
+    {
+        "gtin": "8901491001854",
+        "company_name": "Lay's",
+        "product_name": "PEPSICO.",
+        "fssai_number": "100-3473132476",
+        "address": ""
+    },
+    {
+        "gtin": "8901063142244",
+        "company_name": "Britannia",
+        "product_name": "Nutri choice zero",
+        "fssai_number": "100-5833805231",
+        "address": "India"
+    },
+    {
+        "gtin": "8901058904741",
+        "company_name": "KitKat",
+        "product_name": "Nestle kit Kat (Ind)",
+        "fssai_number": "100-5480181038",
+        "address": "India"
+    },
+    {
+        "gtin": "8906007611602",
+        "company_name": "Kwality",
+        "product_name": "Kreamy magic",
+        "fssai_number": "100-3448120881",
+        "address": "India"
+    },
+    {
+        "gtin": "8901725013684",
+        "company_name": "ITC",
+        "product_name": "Madangle Achari Masti",
+        "fssai_number": "100-3439284595",
+        "address": ""
+    },
+    {
+        "gtin": "8901058875577",
+        "company_name": "Nestl\u00e9",
+        "product_name": "Milkybar",
+        "fssai_number": "100-7476474028",
+        "address": "India"
+    },
+    {
+        "gtin": "8904004403626",
+        "company_name": "Haldiram's",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-3015342770",
+        "address": "India"
+    },
+    {
+        "gtin": "8906005508904",
+        "company_name": "Bikaji",
+        "product_name": "Bikaji mobile bhel chowpati bhelpuri",
+        "fssai_number": "100-3067969030",
+        "address": ""
+    },
+    {
+        "gtin": "0992880034469",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "10094855848737",
+        "address": "India"
+    },
+    {
+        "gtin": "8901764175015",
+        "company_name": "Coca-Cola",
+        "product_name": "Maaza",
+        "fssai_number": "100-4374764958",
+        "address": "Inde"
+    },
+    {
+        "gtin": "7622202216916",
+        "company_name": "Cadbury",
+        "product_name": "Cadbury Chocobakes 17gm",
+        "fssai_number": "10076807602686",
+        "address": ""
+    },
+    {
+        "gtin": "8901088213608",
+        "company_name": "Saffola, Marico",
+        "product_name": "Saffola Oats",
+        "fssai_number": "100-8456074752",
+        "address": ""
+    },
+    {
+        "gtin": "8901058016116",
+        "company_name": "KitKat",
+        "product_name": "KitKat 50",
+        "fssai_number": "10025261639364",
+        "address": "India"
+    },
+    {
+        "gtin": "8901063365964",
+        "company_name": "Britannia",
+        "product_name": "Britannia Chocolate Cake 100gm",
+        "fssai_number": "10076193736745",
+        "address": "India"
+    },
+    {
+        "gtin": "8906151420389",
+        "company_name": "Sitashree LaxmiNarayan",
+        "product_name": "best misal farsan",
+        "fssai_number": "100-3040922456",
+        "address": ""
+    },
+    {
+        "gtin": "3948764012600",
+        "company_name": "Coca-Cola",
+        "product_name": "Coca cola 400",
+        "fssai_number": "100-2890153449",
+        "address": "India"
+    },
+    {
+        "gtin": "8901719127106",
+        "company_name": "Unknown Brand",
+        "product_name": "NG",
+        "fssai_number": "100-7071487524",
+        "address": "India"
+    },
+    {
+        "gtin": "8906010500320",
+        "company_name": "Unknown Brand",
+        "product_name": "8906010500320",
+        "fssai_number": "100-6440240100",
+        "address": "India"
+    },
+    {
+        "gtin": "7622202324697",
+        "company_name": "Unknown Brand",
+        "product_name": "Unknown Product",
+        "fssai_number": "100-5315790007",
+        "address": "India"
+    },
+    {
+        "gtin": "8906031252314",
+        "company_name": "Chakote",
+        "product_name": "Chakote Slice Cake",
+        "fssai_number": "10027743935938",
+        "address": ""
+    },
+    {
+        "gtin": "8901058022193",
+        "company_name": "Maggi",
+        "product_name": "Maggi Noodles",
+        "fssai_number": "10023859060886",
+        "address": "India"
+    },
+    {
+        "gtin": "8901262010023",
+        "company_name": "Amul",
+        "product_name": "Amul pasteurised butter",
+        "fssai_number": "100-5814184978",
+        "address": "India"
+    },
+    {
+        "gtin": "8901262020046",
+        "company_name": "Amul",
+        "product_name": "Pure Milk Cheese Slices",
+        "fssai_number": "10029515974493",
+        "address": "India"
+    },
+    {
+        "gtin": "8906017290125",
+        "company_name": "Bisleri",
+        "product_name": "Vedica",
+        "fssai_number": "100-6365977888",
+        "address": "India"
+    },
+    {
+        "gtin": "8902579103170",
+        "company_name": "Frooti, Parle Agro",
+        "product_name": "Frooti",
+        "fssai_number": "100-3495186193",
+        "address": "Medak, Mysore, Patalganga, Sriperumbudur"
+    },
+    {
+        "gtin": "8000500347508",
+        "company_name": "Kinder",
+        "product_name": "",
+        "fssai_number": "10032536540376",
+        "address": ""
+    },
+    {
+        "gtin": "8901499010483",
+        "company_name": "Kellogg's",
+        "product_name": "Kelloggs Muesli",
+        "fssai_number": "100-7801544422",
+        "address": "maharastra"
     }
 ]
