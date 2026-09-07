@@ -37,12 +37,13 @@ def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
         4. **Manufacturer / Importer Details**: Name and complete address with a valid PIN code must be present.
         5. **Consumer Care Details**: Must include a phone number and/or an email address.
         6. **Commodity Name**: Common generic name of the product must be stated.
+        7. **Counterfeit Packaging & Verification**: You MUST use the Google Search tool to verify the `extracted_fssai_number` (search "FSSAI [number]") and the `extracted_barcode` (search "GTIN [barcode]"). Compare the web-grounded registered company name and official product details with the physical packaging in the image. If there are suspicious typos, poor print quality, or if the web search reveals the FSSAI/barcode belongs to a completely different company or product, flag it strictly as NON_COMPLIANT (Counterfeit).
         
         INSTRUCTIONS:
         1. Extract all text from the label (OCR) into `raw_ocr_text`.
-        2. Evaluate the 6 rules. Create a separate check for each.
+        2. Evaluate the 7 rules. Create a separate check for each.
         3. `status` MUST be "COMPLIANT" or "NON_COMPLIANT".
-        4. `explanation_of_extraction` MUST quote the exact text fragment from the image.
+        4. `explanation_of_extraction` MUST quote the exact text fragment from the image or state the web search result.
         5. `confidence_score` between 0.0 and 1.0.
         6. If all are COMPLIANT (and phase 1 passed), `overall_status` is "COMPLIANT". If any check fails, "NON_COMPLIANT".
         """
@@ -55,6 +56,7 @@ def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
             try:
                 interaction = client.interactions.create(
                     model='gemini-3.7-flash',
+                    tools=[{"google_search": {}}],
                     input=[
                         {
                             "type": "image",

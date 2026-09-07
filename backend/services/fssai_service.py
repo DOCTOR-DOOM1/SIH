@@ -21,14 +21,14 @@ def perform_mock_fssai_lookup(fssai_number: str) -> FSSAIData:
     if len(fssai_number) >= 10:
         return FSSAIData(
             license_number=fssai_number,
-            is_registered=True,
-            company_name="Acme Corp India (Verified by FSSAI)",
-            status_message="License is ACTIVE and registered."
+            is_registered=True,  # Assume true format, but let Gemini RAG verify real company
+            company_name=None,
+            status_message="Format valid. Awaiting Google Search Grounding for real verification."
         )
     else:
         return FSSAIData(
             license_number=fssai_number,
             is_registered=False,
             company_name=None,
-            status_message="Invalid or unregistered FSSAI number format."
+            status_message="Invalid FSSAI number format."
         )

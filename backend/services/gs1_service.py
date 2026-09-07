@@ -46,29 +46,14 @@ def perform_live_barcode_lookup(raw_ocr_text: str) -> dict:
             print(f"OpenFoodFacts API Error: {e}")
             pass
             
-    # Fallback to mock logic if not found or no GTIN
-    if gtin:
-        return {
-            "gtin_found": True,
-            "gtin": gtin,
-            "registered_company": "Demo FMCG Pvt Ltd",
-            "product_description": "Standard Packaged Good - 500g",
-            "registered_mrp": 60.00
-        }
-        
-    if "MRP" in raw_ocr_text.upper() or not raw_ocr_text.strip():
-        return {
-            "gtin_found": True,
-            "gtin": "8901234567890",
-            "registered_company": "Acme Corp India (Registered via GS1)",
-            "product_description": "Acme Brand Packaged Food - 500g",
-            "registered_mrp": 50.00
-        }
-
+    # No mock data fallback; return empty fields to let Gemini search try resolving it
     return {
-        "gtin_found": False,
-        "gtin": None,
+        "gtin_found": bool(gtin),
+        "gtin": gtin,
         "registered_company": None,
         "product_description": None,
-        "registered_mrp": None
+        "registered_mrp": None,
+        "image_url": None,
+        "ingredients_text": None,
+        "nutrition_grades": None
     }
