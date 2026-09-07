@@ -91,6 +91,7 @@ export const ConsumerPortal: React.FC<ConsumerPortalProps> = ({ onBackToLanding,
                       station: "Public App",
                       jurisdiction: "Global"
                     }} 
+                    isConsumer={true}
                   />
                 </div>
               </motion.div>

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import {
   Scale,
   LayoutDashboard,
@@ -236,9 +237,12 @@ export default function App() {
   const headerInfo = getHeaderDetails();
 
   return (
-    <div className="h-screen w-full bg-[#0f0f0f] text-zinc-100 flex overflow-hidden font-sans">
+    <div className="h-screen w-full bg-gradient-animate bg-grain text-zinc-100 flex overflow-hidden font-sans relative">
+      <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-amber-500/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-blue-500/5 rounded-full blur-[100px] pointer-events-none" />
+
       {/* Immersive Left Sidebar */}
-      <aside className="hidden md:flex w-64 bg-[#141414] border-r border-zinc-800 flex-col shrink-0">
+      <aside className="hidden md:flex w-64 glass-panel border-r border-zinc-800/50 flex-col shrink-0 z-10">
         <div className="p-8">
           {/* Brand Logo & Name */}
           <div
@@ -501,9 +505,9 @@ export default function App() {
       )}
 
       {/* Main Layout Area */}
-      <main className="flex-1 flex flex-col h-full min-w-0 overflow-hidden pt-[57px] md:pt-0">
+      <main className="flex-1 flex flex-col h-full min-w-0 overflow-hidden pt-[57px] md:pt-0 z-10 relative">
         {/* Immersive Top Header */}
-        <header className="h-20 lg:h-24 border-b border-zinc-800 flex items-center justify-between px-6 lg:px-10 shrink-0 bg-[#0f0f0f]">
+        <header className="h-20 lg:h-24 border-b border-zinc-800/50 flex items-center justify-between px-6 lg:px-10 shrink-0 glass-panel z-20">
           <div>
             <h2 className="font-playfair text-2xl lg:text-3xl font-bold italic text-white tracking-tight">
               {headerInfo.title}
@@ -556,44 +560,54 @@ export default function App() {
         </header>
 
         {/* View Content Area */}
-        <section className="flex-1 p-6 lg:p-10 space-y-8 overflow-y-auto">
-          {currentView === 'dashboard' && (
-            <DashboardView
-              records={records}
-              officer={officer}
-              onStartScan={() => setCurrentView('scan')}
-              onSelectRecord={handleSelectRecord}
-              onLoadDemoScans={handleLoadDemoScans}
-              onLogout={handleLogout}
-            />
-          )}
+        <section className="flex-1 p-6 lg:p-10 overflow-y-auto">
+          <AnimatePresence mode="wait">
+            {currentView === 'dashboard' && (
+              <motion.div key="dashboard" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="space-y-8">
+                <DashboardView
+                  records={records}
+                  officer={officer}
+                  onStartScan={() => setCurrentView('scan')}
+                  onSelectRecord={handleSelectRecord}
+                  onLoadDemoScans={handleLoadDemoScans}
+                  onLogout={handleLogout}
+                />
+              </motion.div>
+            )}
 
-          {currentView === 'scan' && (
-            <ScanView
-              onComplete={handleScanComplete}
-              officer={officer}
-            />
-          )}
+            {currentView === 'scan' && (
+              <motion.div key="scan" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="space-y-8">
+                <ScanView
+                  onComplete={handleScanComplete}
+                  officer={officer}
+                />
+              </motion.div>
+            )}
 
-          {currentView === 'results' && activeRecord && (
-            <ResultsView
-              record={activeRecord}
-              onNewScan={() => setCurrentView('scan')}
-              onSaveToRepository={handleSaveToRepository}
-              isSavedInRepo={isSavedInRepo}
-            />
-          )}
+            {currentView === 'results' && activeRecord && (
+              <motion.div key="results" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="space-y-8">
+                <ResultsView
+                  record={activeRecord}
+                  onNewScan={() => setCurrentView('scan')}
+                  onSaveToRepository={handleSaveToRepository}
+                  isSavedInRepo={isSavedInRepo}
+                />
+              </motion.div>
+            )}
 
-          {currentView === 'repository' && (
-            <RepositoryView
-              records={records}
-              onSelectRecord={handleSelectRecord}
-              onDeleteRecord={handleDeleteRecord}
-              onClearAll={handleClearAll}
-              onLoadDemoScans={handleLoadDemoScans}
-              onNewScan={() => setCurrentView('scan')}
-            />
-          )}
+            {currentView === 'repository' && (
+              <motion.div key="repository" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.2 }} className="space-y-8">
+                <RepositoryView
+                  records={records}
+                  onSelectRecord={handleSelectRecord}
+                  onDeleteRecord={handleDeleteRecord}
+                  onClearAll={handleClearAll}
+                  onLoadDemoScans={handleLoadDemoScans}
+                  onNewScan={() => setCurrentView('scan')}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </section>
       </main>
 

@@ -1,8 +1,13 @@
 import os
+import json
 from google.cloud import vision
+from google.oauth2 import service_account
 
 # Set the credential env var for Google Cloud Vision API
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(os.path.dirname(os.path.dirname(__file__)), "credentials.json")
+# Try loading from FIREBASE_CREDENTIALS_JSON environment variable first
+cred_json = os.getenv('FIREBASE_CREDENTIALS_JSON')
+if not cred_json:
+    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = os.path.join(os.path.dirname(os.path.dirname(__file__)), "credentials.json")
 
 def extract_text_and_boxes(image_content: bytes):
     """
@@ -10,7 +15,13 @@ def extract_text_and_boxes(image_content: bytes):
     Returns the raw text and a list of blocks with their text and bounding box.
     """
     try:
-        client = vision.ImageAnnotatorClient()
+        if cred_json:
+            cred_dict = json.loads(cred_json)
+            credentials = service_account.Credentials.from_service_account_info(cred_dict)
+            client = vision.ImageAnnotatorClient(credentials=credentials)
+        else:
+            client = vision.ImageAnnotatorClient()
+            
         image = vision.Image(content=image_content)
         
         response = client.document_text_detection(image=image)

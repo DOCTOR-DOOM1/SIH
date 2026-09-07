@@ -95,6 +95,7 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, r
                     ],
                     config=types.GenerateContentConfig(
                         tools=[{"google_search": {}}],
+                        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
                         response_mime_type="application/json",
                         response_schema=GeminiAnalysisResult
                     )
@@ -102,14 +103,18 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, r
                 return json.loads(response.text)
             except Exception as e:
                 import time
-                if "503" in str(e) and attempt < max_retries - 1:
+                err_str = str(e)
+                if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
+                    print("Gemini API Rate Limit Exceeded (429). Falling back to mock data.")
+                    return get_mock_response("RATE LIMIT EXCEEDED (Fallback Active)")
+                if "503" in err_str and attempt < max_retries - 1:
                     print(f"Gemini API 503 Error. Retrying in {2 ** attempt} seconds...")
                     time.sleep(2 ** attempt)
                 else:
                     raise e
     except Exception as e:
         print(f"Gemini API Error: {e}")
-        return get_mock_response("")
+        return get_mock_response("API ERROR (Fallback Active)")
 
 def get_mock_response(raw_text: str):
     # Simple heuristic to simulate compliance for the demo

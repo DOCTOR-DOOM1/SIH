@@ -19,9 +19,10 @@ import { validateDeclarations } from '../logic/validator';
 interface ScanViewProps {
   onComplete: (record: ScanRecord) => void;
   officer: OfficerProfile;
+  isConsumer?: boolean;
 }
 
-export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
+export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer, isConsumer = false }) => {
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [productName, setProductName] = useState<string>('Packaged Commodity');
   const [isScanning, setIsScanning] = useState<boolean>(false);
@@ -233,53 +234,55 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
   return (
     <div className="space-y-8 animate-in fade-in duration-300 max-w-5xl mx-auto">
       {/* Benchmark Presets Section */}
-      <div className="rounded-3xl border border-zinc-800 bg-[#181818] p-6 shadow-xl space-y-4">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-3">
-          <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold flex items-center gap-1.5">
-            <Sparkles size={14} /> Instant SIH Demo Presets (Click to Test)
-          </span>
-          <span className="text-[11px] text-zinc-500 font-mono">Curated Legal Metrology Test Cases</span>
-        </div>
+      {!isConsumer && (
+        <div className="rounded-3xl border border-zinc-800 bg-[#181818] p-6 shadow-xl space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-zinc-800 pb-3">
+            <span className="text-xs font-mono uppercase tracking-widest text-amber-400 font-bold flex items-center gap-1.5">
+              <Sparkles size={14} /> Instant SIH Demo Presets (Click to Test)
+            </span>
+            <span className="text-[11px] text-zinc-500 font-mono">Curated Legal Metrology Test Cases</span>
+          </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
-          {SAMPLE_PACKAGES.map((sample) => {
-            const isSelected = activeSampleId === sample.id;
-            const isPass = sample.expectedVerdict === 'COMPLIANT';
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+            {SAMPLE_PACKAGES.map((sample) => {
+              const isSelected = activeSampleId === sample.id;
+              const isPass = sample.expectedVerdict === 'COMPLIANT';
 
-            return (
-              <button
-                key={sample.id}
-                onClick={() => handleSelectSample(sample)}
-                type="button"
-                className={`text-left rounded-2xl p-3.5 border transition-all ${
-                  isSelected
-                    ? 'border-amber-400 bg-amber-400/10 shadow-md shadow-amber-400/10'
-                    : 'border-zinc-800 bg-zinc-900/60 hover:border-zinc-700 hover:bg-zinc-900'
-                }`}
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <span
-                    className={`px-1.5 py-0.5 rounded-md text-[9px] font-mono font-bold uppercase tracking-wider ${
-                      isPass
-                        ? 'bg-green-500/10 text-green-500 border border-green-500/20'
-                        : 'bg-red-500/10 text-red-400 border border-red-500/20'
-                    }`}
-                  >
-                    {isPass ? 'Compliant' : 'Violation'}
-                  </span>
-                  {isSelected && <CheckCircle2 size={13} className="text-amber-400" />}
-                </div>
-                <div className="font-semibold text-xs text-zinc-100 line-clamp-1 font-playfair">
-                  {sample.title}
-                </div>
-                <div className="text-[10px] text-zinc-400 line-clamp-1 mt-0.5">
-                  {sample.tag}
-                </div>
-              </button>
-            );
-          })}
+              return (
+                <button
+                  key={sample.id}
+                  onClick={() => handleSelectSample(sample)}
+                  type="button"
+                  className={`text-left rounded-2xl p-3.5 border transition-all ${
+                    isSelected
+                      ? 'border-amber-400 bg-amber-400/10 shadow-md shadow-amber-400/10'
+                      : 'border-zinc-800 bg-zinc-900/60 hover:border-zinc-700 hover:bg-zinc-900'
+                  }`}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span
+                      className={`px-1.5 py-0.5 rounded-md text-[9px] font-mono font-bold uppercase tracking-wider ${
+                        isPass
+                          ? 'bg-green-500/10 text-green-500 border border-green-500/20'
+                          : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                      }`}
+                    >
+                      {isPass ? 'Compliant' : 'Violation'}
+                    </span>
+                    {isSelected && <CheckCircle2 size={13} className="text-amber-400" />}
+                  </div>
+                  <div className="font-semibold text-xs text-zinc-100 line-clamp-1 font-playfair">
+                    {sample.title}
+                  </div>
+                  <div className="text-[10px] text-zinc-400 line-clamp-1 mt-0.5">
+                    {sample.tag}
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
 
       {showScanner && (
         <BarcodeScanner
@@ -341,9 +344,9 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
                   e.stopPropagation();
                   fileInputRef.current?.click();
                 }}
-                className="px-5 py-2.5 bg-amber-400 text-black rounded-xl text-xs font-bold hover:bg-amber-300 transition-all uppercase tracking-widest shadow-lg shadow-amber-400/10 flex items-center gap-2"
+                className={`px-5 py-2.5 bg-amber-400 text-black rounded-xl text-xs font-bold hover:bg-amber-300 transition-all uppercase tracking-widest shadow-lg shadow-amber-400/10 flex items-center gap-2 ${isConsumer ? 'text-sm px-6 py-3' : ''}`}
               >
-                <FileImage size={15} />
+                <FileImage size={isConsumer ? 18 : 15} />
                 <span>Browse Photo</span>
               </button>
 
@@ -353,9 +356,9 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
                   e.stopPropagation();
                   cameraInputRef.current?.click();
                 }}
-                className="px-5 py-2.5 border border-zinc-700 bg-zinc-800 rounded-xl text-xs font-bold text-zinc-200 hover:bg-zinc-700 transition-colors uppercase tracking-widest flex items-center gap-2"
+                className={`px-5 py-2.5 border border-zinc-700 bg-zinc-800 rounded-xl text-xs font-bold text-zinc-200 hover:bg-zinc-700 transition-colors uppercase tracking-widest flex items-center gap-2 ${isConsumer ? 'text-sm px-6 py-3' : ''}`}
               >
-                <Camera size={15} />
+                <Camera size={isConsumer ? 18 : 15} />
                 <span>Use Camera</span>
               </button>
 
@@ -365,9 +368,9 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer }) => {
                   e.stopPropagation();
                   setShowScanner(true);
                 }}
-                className="px-5 py-2.5 border border-blue-500/30 bg-blue-500/10 rounded-xl text-xs font-bold text-blue-400 hover:bg-blue-500/20 transition-colors uppercase tracking-widest flex items-center gap-2"
+                className={`px-5 py-2.5 border border-blue-500/30 bg-blue-500/10 rounded-xl text-xs font-bold text-blue-400 hover:bg-blue-500/20 transition-colors uppercase tracking-widest flex items-center gap-2 ${isConsumer ? 'text-sm px-6 py-3' : ''}`}
               >
-                <ScanLine size={15} />
+                <ScanLine size={isConsumer ? 18 : 15} />
                 <span>Scan Barcode</span>
               </button>
             </div>
