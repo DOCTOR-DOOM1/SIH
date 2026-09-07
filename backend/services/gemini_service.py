@@ -87,26 +87,19 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, r
         max_retries = 3
         for attempt in range(max_retries):
             try:
-                interaction = client.interactions.create(
+                response = client.models.generate_content(
                     model='gemini-3.7-flash',
-                    tools=[{"google_search": {}}],
-                    input=[
-                        {
-                            "type": "image",
-                            "mime_type": "image/jpeg",
-                            "data": image_b64,
-                        },
-                        {"type": "text", "text": prompt},
+                    contents=[
+                        types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg"),
+                        prompt
                     ],
-                    response_format=[
-                        {
-                            "type": "text",
-                            "mime_type": "application/json",
-                            "schema": GeminiAnalysisResult.model_json_schema(),
-                        }
-                    ],
+                    config=types.GenerateContentConfig(
+                        tools=[{"google_search": {}}],
+                        response_mime_type="application/json",
+                        response_schema=GeminiAnalysisResult
+                    )
                 )
-                return json.loads(interaction.output_text)
+                return json.loads(response.text)
             except Exception as e:
                 import time
                 if "503" in str(e) and attempt < max_retries - 1:
