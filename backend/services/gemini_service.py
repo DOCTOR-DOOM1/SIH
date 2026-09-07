@@ -47,21 +47,31 @@ def evaluate_compliance_with_image(image_bytes: bytes) -> dict:
         6. If all are COMPLIANT (and phase 1 passed), `overall_status` is "COMPLIANT". If any check fails, "NON_COMPLIANT".
         """
         
+        import base64
+        image_b64 = base64.b64encode(image_bytes).decode("utf-8")
+
         max_retries = 3
         for attempt in range(max_retries):
             try:
-                response = client.models.generate_content(
-                    model='gemini-2.0-flash',
-                    contents=[
-                        types.Part.from_bytes(data=image_bytes, mime_type='image/jpeg'),
-                        prompt
+                interaction = client.interactions.create(
+                    model='gemini-3.7-flash',
+                    input=[
+                        {
+                            "type": "image",
+                            "mime_type": "image/jpeg",
+                            "data": image_b64,
+                        },
+                        {"type": "text", "text": prompt},
                     ],
-                    config=types.GenerateContentConfig(
-                        response_mime_type="application/json",
-                        response_schema=GeminiAnalysisResult,
-                    ),
+                    response_format=[
+                        {
+                            "type": "text",
+                            "mime_type": "application/json",
+                            "schema": GeminiAnalysisResult.model_json_schema(),
+                        }
+                    ],
                 )
-                return json.loads(response.text)
+                return json.loads(interaction.output_text)
             except Exception as e:
                 import time
                 if "503" in str(e) and attempt < max_retries - 1:
