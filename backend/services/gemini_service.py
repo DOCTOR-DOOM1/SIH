@@ -6,7 +6,7 @@ import json
 import base64
 import time
 
-def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, rag_match: dict = None) -> dict:
+def evaluate_compliance_with_image(image_bytes_list: list[bytes], processed_blocks: list, rag_match: dict = None) -> dict:
     api_key = os.getenv("GEMINI_API_KEY")
     if not api_key or api_key == "your_api_key_here":
         print("WARNING: Invalid GEMINI_API_KEY. Returning mock data.")
@@ -37,11 +37,12 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, r
         
         prompt = f"""
         You are the Principal Legal Metrology Orchestrator in an Agentic Ensemble AI system. 
-        You are responsible for performing OCR and reading all text directly from the provided image.
+        You are responsible for performing OCR and reading all text directly from the provided images.
         
         {rag_instructions}
         
-        Analyze the image visually to extract all text, evaluate the context (layout, coin reference, print quality), and strictly evaluate compliance against Legal Metrology rules based on what you read in the image.
+        You have been provided with one or more images of the product packaging from different angles.
+        Analyze all images visually to extract all text, evaluate the context (layout, coin reference from multiple angles, print quality), and strictly evaluate compliance against Legal Metrology rules based on what you read across all images.
         
         PHASE 1: IMAGE TRIAGE
         1. Determine `is_image_clear`: Is the text in the image clear enough to read? If it is severely blurry or illegible, set this to false and provide `image_quality_feedback`.
@@ -75,18 +76,15 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, r
         7. If all are COMPLIANT (and phase 1 passed), `overall_status` is "COMPLIANT". If any check fails, "NON_COMPLIANT".
         """
         
-        import base64
-        image_b64 = base64.b64encode(image_bytes).decode("utf-8")
+        contents = [types.Part.from_bytes(data=img, mime_type="image/jpeg") for img in image_bytes_list]
+        contents.append(prompt)
 
         max_retries = 3
         for attempt in range(max_retries):
             try:
                 response = client.models.generate_content(
                     model='gemini-3.6-flash',
-                    contents=[
-                        types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg"),
-                        prompt
-                    ],
+                    contents=contents,
                     config=types.GenerateContentConfig(
                         temperature=0.0,
                         response_mime_type="application/json",

@@ -1,5 +1,6 @@
 from fastapi import FastAPI, UploadFile, File, Form
 from fastapi.middleware.cors import CORSMiddleware
+from typing import List
 from schemas import LabelComplianceReport, ComplianceRuleCheck
 from firebase_app import get_firestore_client, get_storage_bucket
 from services.vision_service import extract_text_and_boxes
@@ -29,20 +30,21 @@ def read_root():
 
 @app.post("/api/v1/analyze-label", response_model=LabelComplianceReport)
 async def analyze_label(
-    image: UploadFile = File(...),
+    images: List[UploadFile] = File(...),
     barcode: str = Form(None)
 ):
     # 1. Read image bytes
-    image_bytes = await image.read()
+    image_bytes_list = [await img.read() for img in images]
+    first_image_bytes = image_bytes_list[0]
     
     # 2. Upload to Firebase Storage
     image_url = None
     if firebase_admin._apps:
         try:
             bucket = get_storage_bucket()
-            blob_name = f"labels/{uuid.uuid4()}_{image.filename}"
+            blob_name = f"labels/{uuid.uuid4()}_{images[0].filename}"
             blob = bucket.blob(blob_name)
-            blob.upload_from_string(image_bytes, content_type=image.content_type)
+            blob.upload_from_string(first_image_bytes, content_type=images[0].content_type)
             blob.make_public()
             image_url = blob.public_url
         except Exception as e:
@@ -51,14 +53,14 @@ async def analyze_label(
 
     
     # 3. Deterministic Data Gathering (Vision + OpenCV)
-    full_text, blocks = extract_text_and_boxes(image_bytes)
+    full_text, blocks = extract_text_and_boxes(first_image_bytes)
     processed_blocks = analyze_bounding_boxes(blocks)
     
     # 3.5 Check RAG Database
     rag_match = lookup_in_rag(full_text, barcode)
     
     # 4. Gemini Multimodal Analysis (Reasoning Engine)
-    gemini_result = evaluate_compliance_with_image(image_bytes, processed_blocks, rag_match)
+    gemini_result = evaluate_compliance_with_image(image_bytes_list, processed_blocks, rag_match)
     report_dict = gemini_result.copy()
 
     # If the image is rejected, skip the lookups

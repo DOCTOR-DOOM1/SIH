@@ -23,7 +23,7 @@ interface ScanViewProps {
 }
 
 export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer, isConsumer = false }) => {
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [selectedImages, setSelectedImages] = useState<string[]>([]);
   const [productName, setProductName] = useState<string>('Packaged Commodity');
   const [isScanning, setIsScanning] = useState<boolean>(false);
   const [scanStep, setScanStep] = useState<string>('');
@@ -38,23 +38,35 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer, isConsu
   const cameraInputRef = useRef<HTMLInputElement>(null);
 
   // Handle file selection from local device
-  const handleFileProcess = (file: File) => {
-    if (!file.type.startsWith('image/')) {
-      setErrorMessage('Please select a valid image file (JPEG, PNG, WebP).');
-      return;
-    }
-    setErrorMessage(null);
-    setActiveSampleId(null);
-    setActiveSamplePreset(null);
+  const handleFilesProcess = (files: FileList | File[]) => {
+    let validFilesCount = 0;
+    
+    Array.from(files).forEach((file, index) => {
+      if (!file.type.startsWith('image/')) return;
+      validFilesCount++;
+      
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64 = reader.result as string;
+        setSelectedImages(prev => {
+          if (prev.length >= 5) return prev; // max 5
+          return [...prev, base64];
+        });
+        if (index === 0) {
+          const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+          setProductName(cleanName || 'Packaged Commodity');
+        }
+      };
+      reader.readAsDataURL(file);
+    });
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const base64 = reader.result as string;
-      setSelectedImage(base64);
-      const cleanName = file.name.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
-      setProductName(cleanName || 'Packaged Commodity');
-    };
-    reader.readAsDataURL(file);
+    if (validFilesCount === 0) {
+      setErrorMessage('Please select valid image files (JPEG, PNG, WebP).');
+    } else {
+      setErrorMessage(null);
+      setActiveSampleId(null);
+      setActiveSamplePreset(null);
+    }
   };
 
   const handleDrag = (e: React.DragEvent) => {
@@ -71,8 +83,8 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer, isConsu
     e.preventDefault();
     e.stopPropagation();
     setDragActive(false);
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      handleFileProcess(e.dataTransfer.files[0]);
+    if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+      handleFilesProcess(e.dataTransfer.files);
     }
   };
 
@@ -80,15 +92,15 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer, isConsu
   const handleSelectSample = (sample: SamplePackagePreset) => {
     setActiveSampleId(sample.id);
     setActiveSamplePreset(sample);
-    setSelectedImage(sample.imageThumbnail);
+    setSelectedImages([sample.imageThumbnail]);
     setProductName(sample.title);
     setErrorMessage(null);
   };
 
   // Run the compliance analysis
   const handleStartAnalysis = async () => {
-    if (!selectedImage) {
-      setErrorMessage('Please select or upload a product package image first.');
+    if (selectedImages.length === 0) {
+      setErrorMessage('Please select or upload product package images first.');
       return;
     }
 
@@ -140,10 +152,12 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer, isConsu
     } else {
       // Send to server Gemini Vision API endpoint
       try {
-        const resBlob = await fetch(selectedImage);
-        const blob = await resBlob.blob();
         const formData = new FormData();
-        formData.append('image', blob, 'upload.jpg');
+        for (let i = 0; i < selectedImages.length; i++) {
+          const resBlob = await fetch(selectedImages[i]);
+          const blob = await resBlob.blob();
+          formData.append('images', blob, `upload_${i}.jpg`);
+        }
         if (scannedBarcode) {
           formData.append('barcode', scannedBarcode);
         }
@@ -211,7 +225,7 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer, isConsu
       productName: productName.trim() || 'Packaged Commodity',
       overallVerdict: overallVerdict,
       results: results,
-      imageThumbnail: selectedImage,
+      imageThumbnail: selectedImages[0] || '',
       fullExtractedText: extractedText,
       textBlocks: textBlocks,
       fontSizeAdvisory: fontSizeAdvisory,
@@ -313,7 +327,7 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer, isConsu
           </div>
         )}
 
-        {!selectedImage ? (
+        {selectedImages.length === 0 ? (
           <div
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}
@@ -383,22 +397,27 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer, isConsu
           <div className="space-y-6">
             {/* Image Preview & Commodity Name */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-              <div className="relative rounded-2xl border border-zinc-800 bg-black overflow-hidden aspect-[4/3] flex items-center justify-center">
-                <img
-                  src={selectedImage}
-                  alt="Selected package"
-                  className="max-h-full max-w-full object-contain"
-                />
+              <div className="relative rounded-2xl border border-zinc-800 bg-black overflow-hidden aspect-[4/3] flex flex-col items-center justify-center p-4">
+                <div className="flex gap-4 overflow-x-auto w-full h-full pb-2 snap-x items-center">
+                  {selectedImages.map((img, i) => (
+                    <img
+                      key={i}
+                      src={img}
+                      alt={`Package angle ${i + 1}`}
+                      className="max-h-full max-w-full object-contain rounded snap-center shrink-0"
+                    />
+                  ))}
+                </div>
                 <button
                   type="button"
                   onClick={() => {
-                    setSelectedImage(null);
+                    setSelectedImages([]);
                     setActiveSampleId(null);
                     setActiveSamplePreset(null);
                   }}
                   className="absolute top-3 right-3 rounded-lg bg-black/80 px-2.5 py-1 text-xs text-zinc-300 hover:text-white border border-zinc-700 transition-colors font-mono"
                 >
-                  Change Image
+                  Clear All
                 </button>
               </div>
 
@@ -475,9 +494,10 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer, isConsu
           type="file"
           accept="image/*"
           className="hidden"
+          multiple
           onChange={(e) => {
-            if (e.target.files && e.target.files[0]) {
-              handleFileProcess(e.target.files[0]);
+            if (e.target.files && e.target.files.length > 0) {
+              handleFilesProcess(e.target.files);
             }
           }}
         />
@@ -486,10 +506,11 @@ export const ScanView: React.FC<ScanViewProps> = ({ onComplete, officer, isConsu
           type="file"
           accept="image/*"
           capture="environment"
+          multiple
           className="hidden"
           onChange={(e) => {
-            if (e.target.files && e.target.files[0]) {
-              handleFileProcess(e.target.files[0]);
+            if (e.target.files && e.target.files.length > 0) {
+              handleFilesProcess(e.target.files);
             }
           }}
         />
