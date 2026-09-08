@@ -37,17 +37,11 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, r
         
         prompt = f"""
         You are the Principal Legal Metrology Orchestrator in an Agentic Ensemble AI system. 
-        You are NOT responsible for raw OCR reading. That has already been done by a deterministic computer vision model.
-        
-        Below is the ground-truth deterministic text data extracted from the image by Google Cloud Vision, including OpenCV mathematical prominence scores for font sizing:
-        
-        DETERMINISTIC TEXT DATA:
-        {json.dumps(processed_blocks, indent=2)}
+        You are responsible for performing OCR and reading all text directly from the provided image.
         
         {rag_instructions}
         
-        Analyze the image visually ONLY for context (layout, coin reference, print quality). 
-        Use the deterministic text data provided above to strictly evaluate compliance against Legal Metrology rules.
+        Analyze the image visually to extract all text, evaluate the context (layout, coin reference, print quality), and strictly evaluate compliance against Legal Metrology rules based on what you read in the image.
         
         PHASE 1: IMAGE TRIAGE
         1. Determine `is_image_clear`: Is the text in the image clear enough to read? If it is severely blurry or illegible, set this to false and provide `image_quality_feedback`.
@@ -72,13 +66,13 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, r
         9. **7C. Counterfeit Verification (Forensic Print Quality)**: Analyze the micro-typography, barcode edges, and FSSAI logo. Look for ink bleeding, CMYK misalignment, blurred edges, or pixelation which indicates the packaging is a scanned reprint of an original wrapper. If these visual artifacts are present, flag as NON_COMPLIANT (Counterfeit Suspected).
         
         INSTRUCTIONS:
-        1. Parse the DETERMINISTIC TEXT DATA to populate the extraction fields. Do not try to OCR the image yourself for text.
+        1. Perform OCR on the image to read all available text and populate the extraction fields.
         2. Evaluate all 9 rules. Create a separate check for each.
         3. `status` MUST be "COMPLIANT" or "NON_COMPLIANT".
-        4. `explanation_of_extraction` MUST quote the exact text fragment from the DETERMINISTIC TEXT DATA or state the verification source (RAG/Web).
+        4. `explanation_of_extraction` MUST quote the exact text fragment from the image or state the verification source (RAG/Web).
         5. `confidence_score` between 0.0 and 1.0.
         6. If all are COMPLIANT (and phase 1 passed), `overall_status` is "COMPLIANT". If any check fails, "NON_COMPLIANT".
-        7. Place all text from the JSON into `raw_ocr_text`.
+        7. Place all the raw text you extracted from the image into `raw_ocr_text`.
         """
         
         import base64
@@ -88,7 +82,7 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, r
         for attempt in range(max_retries):
             try:
                 response = client.models.generate_content(
-                    model='gemini-3.7-flash',
+                    model='gemini-2.0-flash',
                     contents=[
                         types.Part.from_bytes(data=image_bytes, mime_type="image/jpeg"),
                         prompt
