@@ -88,8 +88,6 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, r
                         prompt
                     ],
                     config=types.GenerateContentConfig(
-                        tools=[{"google_search": {}}],
-                        automatic_function_calling=types.AutomaticFunctionCallingConfig(disable=True),
                         response_mime_type="application/json",
                         response_schema=GeminiAnalysisResult
                     )
@@ -99,6 +97,7 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, r
                 import time
                 err_str = str(e)
                 if "429" in err_str or "RESOURCE_EXHAUSTED" in err_str:
+                    print(f"Gemini API 429 Error Details: {err_str}")
                     print("Gemini API Rate Limit Exceeded (429). Falling back to mock data.")
                     return get_mock_response("RATE LIMIT EXCEEDED (Fallback Active)")
                 if "503" in err_str and attempt < max_retries - 1:
