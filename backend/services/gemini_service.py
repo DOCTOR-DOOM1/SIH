@@ -66,13 +66,13 @@ def evaluate_compliance_with_image(image_bytes: bytes, processed_blocks: list, r
         9. **7C. Counterfeit Verification (Forensic Print Quality)**: Analyze the micro-typography, barcode edges, and FSSAI logo. Look for ink bleeding, CMYK misalignment, blurred edges, or pixelation which indicates the packaging is a scanned reprint of an original wrapper. If these visual artifacts are present, flag as NON_COMPLIANT (Counterfeit Suspected).
         
         INSTRUCTIONS:
-        1. Perform OCR on the image to read all available text and populate the extraction fields.
-        2. Evaluate all 9 rules. Create a separate check for each.
-        3. `status` MUST be "COMPLIANT" or "NON_COMPLIANT".
-        4. `explanation_of_extraction` MUST quote the exact text fragment from the image or state the verification source (RAG/Web).
-        5. `confidence_score` between 0.0 and 1.0.
-        6. If all are COMPLIANT (and phase 1 passed), `overall_status` is "COMPLIANT". If any check fails, "NON_COMPLIANT".
-        7. Place all the raw text you extracted from the image into `raw_ocr_text`.
+        1. FIRST, perform a highly accurate, literal OCR transcription of ALL text visible on the package. Pay close attention to tiny text, numbers, dates, and FSSAI logos.
+        2. Place this entire transcription into the `raw_ocr_text` field.
+        3. THEN, evaluate all 9 rules based on the text you just transcribed. Create a separate check for each.
+        4. `status` MUST be "COMPLIANT" or "NON_COMPLIANT".
+        5. `explanation_of_extraction` MUST quote the exact text fragment from the image or state the verification source (RAG/Web).
+        6. `confidence_score` between 0.0 and 1.0.
+        7. If all are COMPLIANT (and phase 1 passed), `overall_status` is "COMPLIANT". If any check fails, "NON_COMPLIANT".
         """
         
         import base64

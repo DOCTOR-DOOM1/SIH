@@ -29,6 +29,7 @@ class FSSAIData(BaseModel):
 
 
 class GeminiAnalysisResult(BaseModel):
+    raw_ocr_text: str
     is_image_clear: bool
     image_quality_feedback: str
     is_product_label: bool
@@ -40,10 +41,10 @@ class GeminiAnalysisResult(BaseModel):
     extracted_barcode: Optional[str] = None
     extracted_batch_number: Optional[str] = None
     checks: List[ComplianceRuleCheck]
-    raw_ocr_text: str
 
 class LabelComplianceReport(BaseModel):
     # Core Gemini Output
+    raw_ocr_text: str
     is_image_clear: bool
     image_quality_feedback: str
     is_product_label: bool
@@ -51,7 +52,6 @@ class LabelComplianceReport(BaseModel):
     overall_status: str
     confidence_score: float
     checks: List[ComplianceRuleCheck]
-    raw_ocr_text: str
     extracted_mrp_value: Optional[float] = None
     extracted_fssai_number: Optional[str] = None
     extracted_barcode: Optional[str] = None
